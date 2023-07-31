@@ -1,0 +1,223 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: OpenWeatherAPI
+  description: OpenWeatherAPI provides weather data for various locations around the world.
+servers:
+  - url: https://api.openweathermap.org/data/2.5
+paths:
+  /weather:
+    get:
+      summary: Retrieves current weather data for a specific location.
+      tags:
+        - weather
+      operationId: getWeather
+      security:
+        - apiKey: []
+      parameters:
+        - in: query
+          name: q
+          description: The location for which to retrieve weather data (e.g., city name, zip code, or city id).
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: units
+          description: Units of measurement. standard (Kelvin), metric (Celsius) and imperial (Fahrenheit) units are available.
+          schema:
+            type: string
+            enum:
+              - "standard"
+              - "metric"
+              - "imperial"
+      responses:
+        '200':
+          description: Successful response with weather data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Weather'
+        '400':
+          description: Bad request. Invalid or missing parameters.
+        '401':
+          description: Unauthorized. Missing or invalid API key.
+        '404':
+          description: Not found. The specified location was not found.
+        '500':
+          description: Internal server error. Something went wrong on the server side.
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: query
+      name: appid
+      description: API key to access the service.
+  schemas:
+    Weather:
+      type: object
+      properties:
+        coord:
+          type: object
+          properties:
+            lon:
+              type: number
+              description: Longitude of the location.
+              example: 10.99
+            lat:
+              type: number
+              description: Latitude of the location.
+              example: 44.34
+        weather:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+                description: Weather condition id.
+                example: 501
+              main:
+                type: string
+                description: Group of weather parameters (Rain, Snow, Extreme, etc.).
+                example: "Rain"
+              description:
+                type: string
+                description: Weather condition within the group.
+                example: "moderate rain"
+              icon:
+                type: string
+                description: Weather icon id.
+                example: "10d"
+        base:
+          type: string
+          description: Internal parameter.
+          example: "stations"
+        main:
+          type: object
+          properties:
+            temp:
+              type: number
+              description: Temperature as specified units.
+              example: 298.48
+            feels_like:
+              type: number
+              description: Temperature accounting for human perception as specified units.
+              example: 298.74
+            pressure:
+              type: number
+              description: Atmospheric pressure (hPa).
+              example: 1015
+            humidity:
+              type: number
+              description: Humidity (%).
+              example: 64
+            temp_min:
+              type: number
+              description: Minimum temperature at the moment as specified units.
+              example: 297.56
+            temp_max:
+              type: number
+              description: Maximum temperature at the moment as specified units.
+              example: 300.05
+            sea_level:
+              type: number
+              description: Atmospheric pressure on the sea level (hPa).
+              example: 1015
+            grnd_level:
+              type: number
+              description: Atmospheric pressure on the ground level (hPa).
+              example: 933
+        visibility:
+          type: number
+          description: Visibility in meters.
+          example: 10000
+        wind:
+          type: object
+          properties:
+            speed:
+              type: number
+              description: Wind speed (meter/sec) by default.
+              example: 0.62
+            deg:
+              type: number
+              description: Wind direction in degrees (meteorological).
+              example: 349
+            gust:
+              type: number
+              description: Wind gust (meter/sec) by default.
+              example: 1.18
+        clouds:
+          type: object
+          properties:
+            all:
+              type: number
+              description: Cloudiness (%).
+              example: 100
+        rain:
+          type: object
+          properties:
+            1h:
+              type: number
+              description: Rain volume for the last 1 hour (mm).
+              example: 3.16
+            3h:
+              type: number
+              description: Rain volume for the last 3 hours (mm).
+              example: 0
+        snow:
+          type: object
+          properties:
+            1h:
+              type: number
+              description: Snow volume for the last 1 hour (mm).
+              example: 0
+            3h:
+              type: number
+              description: Snow volume for the last 3 hours (mm).
+              example: 0
+        dt:
+          type: number
+          description: Time of data calculation (unix, UTC).
+          example: 1661870592
+        sys:
+          type: object
+          properties:
+            type:
+              type: number
+              description: Internal parameter.
+              example: 2
+            id:
+              type: number
+              description: Internal parameter.
+              example: 2075663
+            message:
+              type: number
+              description: Internal parameter.
+            country:
+              type: string
+              description: Country code (e.g., GB, JP).
+              example: "IT"
+            sunrise:
+              type: number
+              description: Sunrise time (unix, UTC).
+              example: 1661834187
+            sunset:
+              type: number
+              description: Sunset time (unix, UTC).
+              example: 1661882248
+        timezone:
+          type: number
+          description: Shift in seconds from UTC.
+          example: 7200
+        id:
+          type: number
+          description: City ID.
+          example: 3163858
+        name:
+          type: string
+          description: City name.
+          example: "Zocca"
+        cod:
+          type: number
+          description: Internal parameter.
+          example: 200
