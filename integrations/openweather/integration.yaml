@@ -1,0 +1,36 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: 天気予報APIをLangchainツールで使うための設定情報
+paths:
+  /weather:
+    get:
+      description:
+        en: This function will return weather information on the specified city. Should be specified with city name as plain text.
+        ja: この関数を使用して特定の都市の天気情報の質問に回答する。都市名はプレーンテキストでなければならない。
+      parameters:
+        appid:
+          type: string
+          description:
+            en: API key for calling API
+            ja: APIを呼び出すためのAPIキー
+          runtime: false
+        q:
+          type: string
+          description:
+            en: |-
+              Location for obtaining weather information. Should return location name users wants weather information for.
+              Sample:
+              [Question]:"Please tell me the weather information for Tokyo."
+              [Answer]:Tokyo
+            ja: |-
+              天気情報を知りたい場所。ユーザーの質問文から取得する。
+              例：
+              【質問】：「東京都のお天気情報を教えてください。」
+              【回答】：東京都
+          runtime: true
+        units:
+          type: string
+          description:
+            en: Units of measurment. Should set 'metric' by default.
+            ja: 取得する気温の単位を指定する項目。ユーザーから指定がない場合は、「metric」を使用すること。
+          runtime: true
