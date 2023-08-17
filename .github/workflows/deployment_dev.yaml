@@ -1,0 +1,38 @@
+name: Deployment for dev
+
+on:
+  push:
+    branches:
+      - develop
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  upload_s3:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+      - name: Install required packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq python3-pip
+          pip3 install yq
+      - name: Convert yaml to json
+        run: |
+          yq . index.yaml > index.json
+          for path in integrations/*; do
+            name=$(basename "$path")
+            yq . integrations/$name/integration.yaml > integrations/$name/integration.json
+          done
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-oidc-for-tool-directory-role
+          aws-region: ap-northeast-1
+      - name: Upload to AWS S3
+        run: aws s3 sync . ${{ vars.S3_BUCKET_NAME }} --exclude ".github/*" --exclude ".git/*" --delete
