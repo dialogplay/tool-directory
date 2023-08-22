@@ -8,14 +8,14 @@ paths:
         en: This function will return weather information on the specified city. Should be specified with city name as plain text.
         ja: この関数を使用して特定の都市の天気情報の質問に回答する。都市名はプレーンテキストでなければならない。
       parameters:
-        appid:
-          type: string
+        - in: query
+          name: appid
           description:
             en: API key for calling API
             ja: APIを呼び出すためのAPIキー
           runtime: false
-        q:
-          type: string
+        - in: query
+          name: q
           description:
             en: |-
               Location for obtaining weather information. Should return location name users wants weather information for.
@@ -28,8 +28,8 @@ paths:
               【質問】：「東京都のお天気情報を教えてください。」
               【回答】：東京都
           runtime: true
-        units:
-          type: string
+        - in: query
+          name: units
           description:
             en: Units of measurment. Should set 'metric' by default.
             ja: 取得する気温の単位を指定する項目。ユーザーから指定がない場合は、「metric」を使用すること。
