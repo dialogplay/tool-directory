@@ -34,13 +34,13 @@ description: 天気情報APIを...  # description for this integration, not what
 paths:
   /weather:  # path in openapi document
     get:  # method in openapi document
-      description:  # description for this API in multiple languages(ISO 639-1)
+      description:  # description for this API in multiple languages for LLMs (ISO 639-1)
         en: This function will ...
         ja: この関数を...
       parameters:
-        appid:  # parameter name
-          type: string  # parameter type
-          description:  # description for this parameter in multiple languages
+        - in: query  # parameter store which is matched to OpenAPI spec
+          name: appid  # parameter name which is matched to OpenAPI spec
+          description:  # description for this parameter in multiple languages for LLMs
             en: API key ...
             ja: APIを...
           runtime: false  # set true if parameter is passed when this API is executed
