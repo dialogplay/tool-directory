@@ -5,32 +5,24 @@ paths:
   /weather:
     get:
       description:
-        en: This function will return weather information on the specified city. Should be specified with city name as plain text.
-        ja: この関数を使用して特定の都市の天気情報の質問に回答する。都市名はプレーンテキストでなければならない。
+        en: Retrieves current weather data for a specific location. Should be specified location with city name as plain text.
+        ja: 指定した地点の天気情報を取得する。都市名をプレーンテキストで指定しなければならない。
       parameters:
-        appid:
-          type: string
+        - in: query
+          name: appid
           description:
-            en: API key for calling API
-            ja: APIを呼び出すためのAPIキー
+            en: API key for calling API.
+            ja: APIを呼び出すためのAPIキー。
           runtime: false
-        q:
-          type: string
+        - in: query
+          name: q
           description:
-            en: |-
-              Location for obtaining weather information. Should return location name users wants weather information for.
-              Sample:
-              [Question]:"Please tell me the weather information for Tokyo."
-              [Answer]:Tokyo
-            ja: |-
-              天気情報を知りたい場所。ユーザーの質問文から取得する。
-              例：
-              【質問】：「東京都のお天気情報を教えてください。」
-              【回答】：東京都
+            en: The location for which to retrieve weather data.
+            ja: 天気情報を知りたい場所。
           runtime: true
-        units:
-          type: string
+        - in: query
+          name: units
           description:
-            en: Units of measurment. Should set 'metric' by default.
-            ja: 取得する気温の単位を指定する項目。ユーザーから指定がない場合は、「metric」を使用すること。
+            en: Units of measurement. standard (Kelvin), metric (Celsius) and imperial (Fahrenheit) units are available. Use metric if not specified by user.
+            ja: 取得する気温の単位。standard(ケルビン), metric(摂氏), imperial(華氏)が利用可能。ユーザーから指定がない場合は、「metric」を使用すること。
           runtime: true

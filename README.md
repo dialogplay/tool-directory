@@ -12,18 +12,19 @@ The format of this document is as follows:
 ```yaml
 version: 0.0.1-dev  # index file version
 integrations:  # list of integrations
-  - openweather
+  - id: openweather  # unique id for integration which is matched to directory name in integrations
+    name: OpenWeather  # display name for integration
 ```
 
 ### integrations/
 There are directories for each integration service.
 Each directory should include the following.
 
-### integrations/{name}/openapi.yaml
+### integrations/{id}/openapi.yaml
 Within this document, provide the details of API specifications in accordance with the [OpenAPI specification](https://swagger.io/specification/).  
 (JSON format is also supported.)
 
-### integrations/{name}/integration.yaml
+### integrations/{id}/integration.yaml
 Within this document, provide a formatted description of the API's role and usage for LangChain and LLMs.
 The format of this document is as follows:
 ```yaml
@@ -33,18 +34,18 @@ description: 天気情報APIを...  # description for this integration, not what
 paths:
   /weather:  # path in openapi document
     get:  # method in openapi document
-      description:  # description for this API in multiple languages(ISO 639-1)
+      description:  # description for this API in multiple languages for LLMs (ISO 639-1)
         en: This function will ...
         ja: この関数を...
       parameters:
-        appid:  # parameter name
-          type: string  # parameter type
-          description:  # description for this parameter in multiple languages
+        - in: query  # parameter store which is matched to OpenAPI spec
+          name: appid  # parameter name which is matched to OpenAPI spec
+          description:  # description for this parameter in multiple languages for LLMs
             en: API key ...
             ja: APIを...
           runtime: false  # set true if parameter is passed when this API is executed
 ```
-### integrations/{name}/README.md
+### integrations/{id}/README.md
 Within this document, explain the purpose and usage of the API in human-readable manner.
 
 ## Licensing
