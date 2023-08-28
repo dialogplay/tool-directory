@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  upload_s3:
+  upload_website:
     runs-on: ubuntu-latest
     environment:
       name: dev
@@ -37,3 +37,5 @@ jobs:
           aws-region: ap-northeast-1
       - name: Upload to AWS S3
         run: aws s3 sync . ${{ vars.S3_BUCKET_NAME }} --exclude ".github/*" --exclude ".git/*" --delete
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ vars.CLOUDFRONT_DISTRIBUTION }} --paths "/*"
