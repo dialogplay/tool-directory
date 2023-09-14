@@ -64,7 +64,7 @@ components:
           example: "Japan"
         loc:
           type: string
-          description: location (longitude, latitude).
+          description: location (latitude, longitude).
           example: "35.6592,139.5484"
         org:
           type: string
