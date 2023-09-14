@@ -1,0 +1,16 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: ipinfoAPIをLangchainツールで使うための設定情報
+paths:
+  /:
+    get:
+      description:
+        en: Retrieves current ip information.
+        ja: アクセス中のIP情報を取得する。
+      parameters:
+        - in: query
+          name: token
+          description:
+            en: API key for calling API.
+            ja: APIを呼び出すためのAPIキー。
+          runtime: false
