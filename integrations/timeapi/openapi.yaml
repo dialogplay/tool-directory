@@ -1,0 +1,939 @@
+openapi: 3.0.1
+info:
+  title: 'Time API'
+  description: 'This is a simple time API that can be used for free.'
+  contact:
+    name: 'TimeAPI Support'
+    email: support@timeapi.io
+  version: 0.97.2
+servers:
+  - url: https://timeapi.io
+paths:
+  /api/Time/current/zone:
+    get:
+      tags:
+        - Time
+      summary: 'Gets the current time of a time zone.'
+      parameters:
+        -
+          name: timeZone
+          in: query
+          description: 'Full IANA time zone names.'
+          schema:
+            type: string
+          example: Europe/Amsterdam
+          allowReserved: true
+      responses:
+        200:
+          description: 'Current time'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentTime'
+        400:
+          description: 'Error message.'
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/Time/current/coordinate:
+    get:
+      tags:
+        - Time
+      summary: 'Gets the current time of a time zone by geo coordinates.'
+      parameters:
+        -
+          name: latitude
+          in: query
+          description: 'Latitude ranging from -90 to 90'
+          schema:
+            type: number
+            format: float
+          example: 38.9
+        -
+          name: longitude
+          in: query
+          description: 'Longitude ranging from -180 to 180'
+          schema:
+            type: number
+            format: float
+          example: -77.03
+      responses:
+        200:
+          description: 'Current time'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentTime'
+        400:
+          description: 'Error message.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /api/Time/current/ip:
+    get:
+      tags:
+        - Time
+      summary: 'Gets the current time of a time zone by ip address.'
+      parameters:
+        -
+          name: ipAddress
+          in: query
+          description: 'IPv4 address'
+          schema:
+            type: string
+          example: 237.71.232.203
+      responses:
+        200:
+          description: 'Current time'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentTime'
+        400:
+          description: 'Error message.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /api/TimeZone/AvailableTimeZones:
+    get:
+      tags:
+        - TimeZone
+      summary: 'Gets all the available IANA time zones.'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /api/TimeZone/zone:
+    get:
+      tags:
+        - TimeZone
+      summary: 'Gets the time zone info by IANA time zone name'
+      parameters:
+        -
+          name: timeZone
+          in: query
+          description: 'Full IANA time zone name.'
+          schema:
+            type: string
+          example: Europe/Amsterdam
+          allowReserved: true
+      responses:
+        200:
+          description: 'Time zone info'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeZoneData'
+        400:
+          description: 'Error message.'
+          content:
+            application/json:
+              schema:
+                type: string
+        404:
+          description: 'Time zone not found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /api/TimeZone/coordinate:
+    get:
+      tags:
+        - TimeZone
+      summary: 'Gets the time zone info of a geo coordinate.'
+      parameters:
+        -
+          name: latitude
+          in: query
+          description: 'Latitude ranging from -90 to 90'
+          schema:
+            type: number
+            format: float
+          example: 38.9
+        -
+          name: longitude
+          in: query
+          description: 'Longitude ranging from -180 to 180'
+          schema:
+            type: number
+            format: float
+          example: -77.03
+      responses:
+        200:
+          description: 'Time zone info'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeZoneData'
+        400:
+          description: 'Error message.'
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/TimeZone/ip:
+    get:
+      tags:
+        - TimeZone
+      summary: 'Gets the time zone info of an IPv4 address.'
+      parameters:
+        -
+          name: ipAddress
+          in: query
+          description: 'IPv4 address'
+          schema:
+            type: string
+          example: 237.71.232.203
+      responses:
+        200:
+          description: 'Time zone info'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeZoneData'
+        400:
+          description: 'Error message.'
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/Conversion/ConvertTimeZone:
+    post:
+      tags:
+        - Conversion
+      summary: 'Allows you to convert the time in a timezone to the time in another timezone'
+      description: ''
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConvertRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ConvertRequest'
+          'application/*+json':
+            schema:
+              $ref: '#/components/schemas/ConvertRequest'
+      responses:
+        200:
+          description: 'The result of the conversion'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversion'
+        400:
+          description: 'Validation error message'
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/Conversion/Translate:
+    post:
+      tags:
+        - Conversion
+      summary: 'Converts a date time into a language translated friendly date time string'
+      description: ''
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranslationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TranslationRequest'
+          'application/*+json':
+            schema:
+              $ref: '#/components/schemas/TranslationRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Translation'
+        400:
+          description: 'Bad Request'
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/Conversion/DayOfTheWeek/{date}:
+    get:
+      tags:
+        - Conversion
+      summary: 'Convert a date to the day of the week'
+      parameters:
+        -
+          name: date
+          in: path
+          description: 'Date in format: yyyy-MM-dd'
+          required: true
+          schema:
+            type: string
+          example: '2021-03-14'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DayOfTheWeekResult'
+        400:
+          description: 'Bad Request'
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/Conversion/DayOfTheYear/{date}:
+    get:
+      tags:
+        - Conversion
+      summary: 'Convert a date to the day of the year'
+      parameters:
+        -
+          name: date
+          in: path
+          description: 'Date in format: yyyy-MM-dd'
+          required: true
+          schema:
+            type: string
+          example: '2021-03-14'
+      responses:
+        400:
+          description: 'Bad Request'
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/Calculation/current/increment:
+    post:
+      tags:
+        - Calculation
+      summary: 'Allows you to increment the current datetime by a specific timespan.'
+      description: ''
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalculationRequestCurrent'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CalculationRequestCurrent'
+          'application/*+json':
+            schema:
+              $ref: '#/components/schemas/CalculationRequestCurrent'
+      responses:
+        200:
+          description: 'The result of the calculation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Calculation'
+        400:
+          description: 'Validation error message'
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/Calculation/current/decrement:
+    post:
+      tags:
+        - Calculation
+      summary: 'Allows you to decrement the current datetime by a specific timespan.'
+      description: ''
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalculationRequestCurrent'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CalculationRequestCurrent'
+          'application/*+json':
+            schema:
+              $ref: '#/components/schemas/CalculationRequestCurrent'
+      responses:
+        200:
+          description: 'The result of the calculation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Calculation'
+        400:
+          description: 'Validation error message'
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/Calculation/custom/increment:
+    post:
+      tags:
+        - Calculation
+      summary: 'Allows you to increment a custom datetime by a specific timespan.'
+      description: ''
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalculationRequestCustom'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CalculationRequestCustom'
+          'application/*+json':
+            schema:
+              $ref: '#/components/schemas/CalculationRequestCustom'
+      responses:
+        200:
+          description: 'The result of the calculation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Calculation'
+        400:
+          description: 'Validation error message'
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/Calculation/custom/decrement:
+    post:
+      tags:
+        - Calculation
+      summary: 'Allows you to decrement a custom datetime by a specific timespan.'
+      description: ''
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalculationRequestCustom'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CalculationRequestCustom'
+          'application/*+json':
+            schema:
+              $ref: '#/components/schemas/CalculationRequestCustom'
+      responses:
+        200:
+          description: 'The result of the calculation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Calculation'
+        400:
+          description: 'Validation error message'
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    Calculation:
+      type: object
+      properties:
+        timeZone:
+          type: string
+          description: 'IANA Timezone used'
+          nullable: true
+          example: Europe/Amsterdam
+        originalDateTime:
+          type: string
+          description: 'Original DateTime given'
+          format: date-time
+          example: '2021-11-27T05:45:00'
+        usedTimeSpan:
+          type: string
+          description: 'The timespan used to increase or decrease the original datetime by in format: d:hh:mm:ss'
+          nullable: true
+          example: '16:03:45:17'
+        calculationResult:
+          $ref: '#/components/schemas/CalculationResult'
+      additionalProperties: false
+    CalculationRequestCurrent:
+      required:
+        - timeSpan
+        - timeZone
+      type: object
+      properties:
+        timeZone:
+          type: string
+          description: 'IANA TimeZone'
+          example: Europe/Amsterdam
+        timeSpan:
+          type: string
+          description: 'Time span to increase or decrease datetime by in format: d:hh:mm:ss or in format: d:hh:mm:ss.fff'
+          example: '16:03:45:17'
+      additionalProperties: false
+    CalculationRequestCustom:
+      required:
+        - dateTime
+        - timeSpan
+        - timeZone
+      type: object
+      properties:
+        timeZone:
+          type: string
+          description: 'IANA TimeZone'
+          example: Europe/Amsterdam
+        dateTime:
+          type: string
+          description: 'DateTime in format: yyyy-MM-dd HH:mm:ss or in format: yyyy-MM-dd HH:mm:ss.ffffff'
+          example: '2021-11-27 05:45:00'
+        timeSpan:
+          type: string
+          description: 'Time span to increase or decrease datetime by in format: d:hh:mm:ss or in format: d:hh:mm:ss.fff'
+          example: '16:03:45:17'
+        dstAmbiguity:
+          type: string
+          description: 'Sometimes a time can be ambiguous due to DST switching.\r\nFor example, suppose the time zone goes backward\r\nat 2am, so the second after 01:59:59 becomes 01:00:00. In that case,\r\ntimes such as 01:30:00 occur twice. By using "earlier" it uses the earlier version of 01:30:00 where 01:59:59 has not been passed.\r\nBy using "later" it uses the later version of 01:30:00 where the time has passed 01:59:59.'
+          nullable: true
+          example: ''
+      additionalProperties: false
+    CalculationResult:
+      type: object
+      properties:
+        year:
+          type: integer
+          description: Year
+          format: int32
+          example: 2021
+        month:
+          type: integer
+          description: Month
+          format: int32
+          example: 12
+        day:
+          type: integer
+          description: Day
+          format: int32
+          example: 13
+        hour:
+          type: integer
+          description: 'Hour of the day in range 0-24'
+          format: int32
+          example: 9
+        minute:
+          type: integer
+          description: Minute
+          format: int32
+          example: 30
+        seconds:
+          type: integer
+          description: Second
+          format: int32
+          example: 17
+        milliSeconds:
+          type: integer
+          description: Milliseconds
+          format: int32
+          example: 0
+        dateTime:
+          type: string
+          description: 'Full date time'
+          format: date-time
+          example: '2021-12-13T09:30:17'
+        date:
+          type: string
+          description: 'Date string'
+          nullable: true
+          example: 13/12/2021
+        time:
+          type: string
+          description: 'Time string'
+          nullable: true
+          example: '09:30'
+        dstActive:
+          type: boolean
+          description: 'Boolean describing whether DST is applied and active in that timezone'
+          example: false
+      additionalProperties: false
+    Conversion:
+      type: object
+      properties:
+        fromTimezone:
+          type: string
+          nullable: true
+        fromDateTime:
+          type: string
+          format: date-time
+        toTimeZone:
+          type: string
+          nullable: true
+        conversionResult:
+          $ref: '#/components/schemas/ConversionResult'
+      additionalProperties: false
+    ConversionResult:
+      type: object
+      properties:
+        year:
+          type: integer
+          description: Year
+          format: int32
+          example: 2021
+        month:
+          type: integer
+          description: Month
+          format: int32
+          example: 3
+        day:
+          type: integer
+          description: Day
+          format: int32
+          example: 14
+        hour:
+          type: integer
+          description: 'Hour of the day in range 0-24'
+          format: int32
+          example: 9
+        minute:
+          type: integer
+          description: Minute
+          format: int32
+          example: 45
+        seconds:
+          type: integer
+          description: Second
+          format: int32
+          example: 0
+        milliSeconds:
+          type: integer
+          description: Milliseconds
+          format: int32
+          example: 0
+        dateTime:
+          type: string
+          description: 'Full date time'
+          format: date-time
+          example: '2021-03-14T09:45:00'
+        date:
+          type: string
+          description: 'Date string'
+          nullable: true
+          example: 14/03/2021
+        time:
+          type: string
+          description: 'Time string'
+          nullable: true
+          example: '09:45'
+        timeZone:
+          type: string
+          description: 'TimeZone of the result'
+          nullable: true
+          example: America/Los_Angeles
+        dstActive:
+          type: boolean
+          description: 'Boolean describing whether DST is applied and active in that timezone'
+          example: true
+      additionalProperties: false
+    ConvertRequest:
+      required:
+        - dateTime
+        - fromTimeZone
+        - toTimeZone
+      type: object
+      properties:
+        fromTimeZone:
+          type: string
+          description: 'IANA TimeZone'
+          example: Europe/Amsterdam
+        dateTime:
+          type: string
+          description: 'DateTime in format: yyyy-MM-dd HH:mm:ss or in format: yyyy-MM-dd HH:mm:ss.ffffff'
+          example: '2021-03-14 17:45:00'
+        toTimeZone:
+          type: string
+          description: 'IANA TimeZone'
+          example: America/Los_Angeles
+        dstAmbiguity:
+          type: string
+          description: 'Sometimes a time can be ambiguous due to DST switching.\r\nFor example, suppose the time zone goes backward\r\nat 2am, so the second after 01:59:59 becomes 01:00:00. In that case,\r\ntimes such as 01:30:00 occur twice. By using "earlier" it uses the earlier version of 01:30:00 where 01:59:59 has not been passed.\r\nBy using "later" it uses the later version of 01:30:00 where the time has passed 01:59:59.'
+          nullable: true
+          example: ''
+      additionalProperties: false
+    CurrentTime:
+      type: object
+      properties:
+        year:
+          type: integer
+          description: Year
+          format: int32
+          example: 2020
+        month:
+          type: integer
+          description: Month
+          format: int32
+          example: 12
+        day:
+          type: integer
+          description: Day
+          format: int32
+          example: 13
+        hour:
+          type: integer
+          description: 'Hour of the day in range 0-24'
+          format: int32
+          example: 9
+        minute:
+          type: integer
+          description: Minute
+          format: int32
+          example: 30
+        seconds:
+          type: integer
+          description: Second
+          format: int32
+          example: 17
+        milliSeconds:
+          type: integer
+          description: Milliseconds
+          format: int32
+          example: 0
+        dateTime:
+          type: string
+          description: 'Full date time'
+          format: date-time
+          example: '2020-12-13T09:30:17'
+        date:
+          type: string
+          description: 'Date string'
+          nullable: true
+          example: 13/12/2020
+        time:
+          type: string
+          description: 'Time string'
+          nullable: true
+          example: '09:30'
+        timeZone:
+          type: string
+          description: 'TimeZone of the result'
+          nullable: true
+          example: America/Los_Angeles
+        dayOfWeek:
+          $ref: '#/components/schemas/DayOfWeek'
+        dstActive:
+          type: boolean
+          description: 'Boolean describing whether DST is applied and active in that timezone'
+          example: false
+      additionalProperties: false
+    DayOfTheWeekResult:
+      type: object
+      properties:
+        dayOfWeek:
+          $ref: '#/components/schemas/DayOfWeek'
+      additionalProperties: false
+    DayOfWeek:
+      enum:
+        - Sunday
+        - Monday
+        - Tuesday
+        - Wednesday
+        - Thursday
+        - Friday
+        - Saturday
+      type: string
+    DstInterval:
+      type: object
+      properties:
+        dstName:
+          type: string
+          nullable: true
+        dstOffsetToUtc:
+          $ref: '#/components/schemas/Offset'
+        dstOffsetToStandardTime:
+          $ref: '#/components/schemas/Offset'
+        dstStart:
+          type: string
+          format: date-time
+          nullable: true
+        dstEnd:
+          type: string
+          format: date-time
+          nullable: true
+        dstDuration:
+          $ref: '#/components/schemas/Duration'
+      additionalProperties: false
+    Duration:
+      type: object
+      properties:
+        days:
+          type: integer
+          format: int32
+          readOnly: true
+        nanosecondOfDay:
+          type: integer
+          format: int64
+          readOnly: true
+        hours:
+          type: integer
+          format: int32
+          readOnly: true
+        minutes:
+          type: integer
+          format: int32
+          readOnly: true
+        seconds:
+          type: integer
+          format: int32
+          readOnly: true
+        milliseconds:
+          type: integer
+          format: int32
+          readOnly: true
+        subsecondTicks:
+          type: integer
+          format: int32
+          readOnly: true
+        subsecondNanoseconds:
+          type: integer
+          format: int32
+          readOnly: true
+        bclCompatibleTicks:
+          type: integer
+          format: int64
+          readOnly: true
+        totalDays:
+          type: number
+          format: double
+          readOnly: true
+        totalHours:
+          type: number
+          format: double
+          readOnly: true
+        totalMinutes:
+          type: number
+          format: double
+          readOnly: true
+        totalSeconds:
+          type: number
+          format: double
+          readOnly: true
+        totalMilliseconds:
+          type: number
+          format: double
+          readOnly: true
+        totalTicks:
+          type: number
+          format: double
+          readOnly: true
+        totalNanoseconds:
+          type: number
+          format: double
+          readOnly: true
+      additionalProperties: false
+    Offset:
+      type: object
+      properties:
+        seconds:
+          type: integer
+          format: int32
+          readOnly: true
+        milliseconds:
+          type: integer
+          format: int32
+          readOnly: true
+        ticks:
+          type: integer
+          format: int64
+          readOnly: true
+        nanoseconds:
+          type: integer
+          format: int64
+          readOnly: true
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: {  }
+    TimeZoneData:
+      type: object
+      properties:
+        timeZone:
+          type: string
+          nullable: true
+        currentLocalTime:
+          type: string
+          format: date-time
+        currentUtcOffset:
+          $ref: '#/components/schemas/Offset'
+        standardUtcOffset:
+          $ref: '#/components/schemas/Offset'
+        hasDayLightSaving:
+          type: boolean
+        isDayLightSavingActive:
+          type: boolean
+        dstInterval:
+          $ref: '#/components/schemas/DstInterval'
+      additionalProperties: false
+    Translation:
+      type: object
+      properties:
+        dateTime:
+          type: string
+          description: 'Given date time to translate'
+          nullable: true
+          example: '2021-03-14 17:45:00'
+        languageCode:
+          type: string
+          description: 'Given language code to translate the date time into'
+          nullable: true
+          example: de
+        friendlyDateTime:
+          type: string
+          description: 'Full translated date time'
+          nullable: true
+          example: 'Sonntag, 14. März 2021 17:45:00'
+        friendlyDate:
+          type: string
+          description: 'Translated date'
+          nullable: true
+          example: 'Sonntag, 14. März 2021'
+        friendlyTime:
+          type: string
+          description: 'Translated time'
+          nullable: true
+          example: '17:45:00'
+      additionalProperties: false
+    TranslationRequest:
+      required:
+        - dateTime
+        - languageCode
+      type: object
+      properties:
+        dateTime:
+          type: string
+          description: 'DateTime in format: yyyy-MM-dd HH:mm:ss or in format: yyyy-MM-dd HH:mm:ss.ffffff'
+          example: '2021-03-14 17:45:00'
+        languageCode:
+          type: string
+          description: '2 letter ISO 639-1 language code. List of codes can be found at: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes'
+          example: de
+      additionalProperties: false

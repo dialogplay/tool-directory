@@ -1,0 +1,51 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: Integration information for using TIMEAPI by Langchain tool
+paths:
+  /api/Time/current/zone:
+    get:
+      description:
+        en: Retrieves current time for a specific timezone. Should be specified timezone as IANA timezone format.
+        ja: 指定したタイムゾーンの時刻を取得する。タイムゾーンをIANAタイムゾーンで指定しなければならない。
+      parameters:
+        - in: query
+          name: timeZone
+          description:
+            en: The timezone for which to retrieve current time.
+            ja: 時刻を知りたいタイムゾーン。
+          runtime: true
+  /api/Time/current/coordinate:
+    get:
+      description:
+        en: Retrieves current current time of a time zone by geo coordinates. Should be specified geo coordinates.
+        ja: 指定した位置情報の時刻を取得する。地理情報（軽度、緯度）を指定しなければならない。
+      parameters:
+        - in: query
+          name: latitude
+          description:
+            en: Latitude ranging from -90 to 90
+            ja: -90 から 90 の範囲の緯度
+          runtime: true
+        - in: query
+          name: longitude
+          description:
+            en: Longitude ranging from -180 to 180
+            ja: -180 から 180 の範囲の軽度
+          runtime: true
+  /api/Time/current/ip:
+    get:
+      description:
+        en: Retrieves current time for a specific ip address. Should be specified ip address.
+        ja: 指定したIPアドレスのタイムゾーンで現在の時刻を取得する。IPアドレスを指定しなければならない。
+      parameters:
+        - in: query
+          name: ipAddress
+          description:
+            en: The ip address for which to retrieve current time.
+            ja: 時刻を知りたいIPアドレス。
+          runtime: true
+  /api/TimeZone/AvailableTimeZones:
+    get:
+      description:
+        en: Gets all the available IANA time zones.
+        ja: すべての利用可能なIANAタイムゾーンを取得する。
