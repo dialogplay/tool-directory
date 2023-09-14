@@ -45,11 +45,11 @@ components:
         ip:
           type: string
           description: IP address.
-          example: "8.8.8.8"
+          example: "203.0.113.0"
         hostname:
           type: string
           description: Host name.
-          example: "8.8.8.8"
+          example: "xxx.ocn.ne.jp"
         city:
           type: string
           description: City name.
@@ -65,7 +65,7 @@ components:
         loc:
           type: string
           description: location (longitude, latitude).
-          example: "10.99,44.34"
+          example: "35.6592,139.5484"
         org:
           type: string
           description: Organization.
@@ -80,5 +80,5 @@ components:
           example: "Asia/Tokyo"
         readme:
           type: string
-          description: General info.
+          description: Warning when token not specified.
           example: "https://ipinfo.io/missingauth"
