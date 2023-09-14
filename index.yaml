@@ -2,3 +2,5 @@ version: 0.0.1-dev
 integrations:
   - id: openweather
     name: OpenWeather
+  - id: ipinfo
+    name: IPinfo
