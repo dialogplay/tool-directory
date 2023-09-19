@@ -18,7 +18,7 @@ paths:
     get:
       description:
         en: Retrieves current current time of a time zone by geo coordinates. Should be specified geo coordinates.
-        ja: 指定した位置情報の時刻を取得する。地理情報（軽度、緯度）を指定しなければならない。
+        ja: 指定した位置情報の時刻を取得する。地理情報（緯度、経度）を指定しなければならない。
       parameters:
         - in: query
           name: latitude
@@ -30,7 +30,7 @@ paths:
           name: longitude
           description:
             en: Longitude ranging from -180 to 180
-            ja: -180 から 180 の範囲の軽度
+            ja: -180 から 180 の範囲の経度
           runtime: true
   /api/Time/current/ip:
     get:
