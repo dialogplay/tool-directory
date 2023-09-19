@@ -17,7 +17,7 @@ paths:
   /api/Time/current/coordinate:
     get:
       description:
-        en: Retrieves current current time of a time zone by geo coordinates. Should be specified geo coordinates.
+        en: Retrieves current time of a time zone by geo coordinates. Should be specified geo coordinates.
         ja: 指定した位置情報の時刻を取得する。地理情報（緯度、経度）を指定しなければならない。
       parameters:
         - in: query
