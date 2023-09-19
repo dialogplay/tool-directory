@@ -1,0 +1,28 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: Integration information for using Slack by Langchain tool
+paths:
+  /chat.meMessage:
+    post:
+      description:
+        en: Sends a message to a channel. Require to specify channel and text.
+        ja: チャネルにメッセージを送信する。送信先のチャネルとテキストを指定しなければならない。
+      parameters:
+        - in: header
+          name: token
+          description:
+            en: API key for calling API.
+            ja: APIを呼び出すためのAPIキー。
+          runtime: false
+        - in: query
+          name: channel
+          description:
+            en: Channel to send message to.
+            ja: メッセージ送信先のチャネル。
+          runtime: true
+        - in: query
+          name: text
+          description:
+            en: Message text.
+            ja: メッセージ内容のテキスト。
+          runtime: true
