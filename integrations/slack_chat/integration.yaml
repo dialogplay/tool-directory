@@ -1,8 +1,8 @@
 version: 0.0.1-dev
 openApi: ./openapi.yaml
-description: Integration information for using Slack by Langchain tool
+description: Integration information for using Slack by LangChain tool
 paths:
-  /chat.meMessage:
+  /chat.postMessage:
     post:
       description:
         en: Sends a message to a channel. Require to specify channel and text.
