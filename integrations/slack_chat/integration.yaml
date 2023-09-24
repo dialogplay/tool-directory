@@ -11,8 +11,8 @@ paths:
         - in: header
           name: token
           description:
-            en: API key for calling API.
-            ja: APIを呼び出すためのAPIキー。
+            en: User OAuth Token or Bot User OAuth Token for calling API.
+            ja: APIを呼び出すための User OAuth Token または Bot User OAuth Token。
           runtime: false
         - in: query
           name: channel

@@ -3,11 +3,11 @@ This integration provides API for Slack chat operation.
 
 ## Post /chat.postMessage
 ### Parameters
-This API requires one arguments.
+This API requires three arguments.
 
 | name | type | description | runtime |
 | --- | --- | --- | --- |
-| token | string | API key for calling API | false |
+| token | string | User OAuth Token or Bot User OAuth Token for calling API | false |
 | channel | string | Channel to send message to | true |
 | text | string | Message text | true |
 
@@ -31,9 +31,9 @@ The sample of response is as follows.
 ## Examples
 
 ```
-input: Retreive current ip address as {#content}. Then please send messege the {#content} to slack target channel is {#channel}\n#channel: #random.
+input: Post current ip address to #chatbot-test in slack.
 
-output: The current IP address has been successfully sent to the '#random' Slack channel.
+output: The current IP address has been successfully sent to the '#chatbot-test' Slack channel.
 
 input: Slackで Hello というメッセージを次のチャンネル {#channel} に送信して。\n#channel: #random
 
