@@ -35,7 +35,7 @@ input: Post current ip address to #chatbot-test in slack.
 
 output: The current IP address has been successfully sent to the '#chatbot-test' Slack channel.
 
-input: Slackで Hello というメッセージを次のチャンネル {#channel} に送信して。\n#channel: #random
+input: SlackでIPアドレスをチャンネル#randomに送信して。
 
-output: メッセージ 'Hello' が Slack の #random チャンネルに正常に送信されました。
+output: IPアドレス情報をSlackの#randomチャンネルに送信しました。
 ```
