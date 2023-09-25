@@ -23,7 +23,7 @@ paths:
       operationId: chat_postMessage
       parameters:
       - description: 'Authentication token. Requires scope: `chat:write`'
-        in: header
+        in: query
         name: token
         required: true
         schema:
