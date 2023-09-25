@@ -8,3 +8,5 @@ integrations:
     name: TimeAPI
   - id: slack_chat
     name: SlackChatAPI
+  - id: japansearch
+    name: JapansearchAPI

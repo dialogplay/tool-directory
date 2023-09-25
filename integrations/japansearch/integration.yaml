@@ -1,0 +1,32 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: JapansearchをLangchainツールで使うための設定情報
+paths:
+  /item/search/jps-cross:
+    get:
+      description:
+        en: Retrieves digital archives from japansearch. Require to specify one or more keyword. Ability specify size for retreive.
+        ja: Japansearchからデジタルアーカイブを検索する。1つ以上のキーワードを指定しなければならない。取得する件数を指定することができる。
+      parameters:
+        - in: query
+          name: keyword
+          description:
+            en: Keywords to search for digital archives.
+            ja: デジタルアーカイブ検索するキーワード。
+          runtime: true
+        - in: query
+          name: from
+          description:
+            en: Position to start acquisition. Default value is 0.
+            ja: 取得を開始する位置。指定しない場合は最初から。
+          schema:
+            type: number
+          runtime: true
+        - in: query
+          name: size
+          description:
+            en: Number of items to retrieve. Default value is 200.
+            ja: 取得する最大件数。デフォルト値は200件。
+          schema:
+            type: number
+          runtime: true
