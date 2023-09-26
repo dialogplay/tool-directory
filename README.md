@@ -49,4 +49,4 @@ paths:
 Within this document, explain the purpose and usage of the API in human-readable manner.
 
 ## Licensing
-(Under consideration)
+MIT
