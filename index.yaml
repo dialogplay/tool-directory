@@ -6,3 +6,5 @@ integrations:
     name: IPinfo
   - id: timeapi
     name: TimeAPI
+  - id: slack_chat
+    name: SlackChatAPI
