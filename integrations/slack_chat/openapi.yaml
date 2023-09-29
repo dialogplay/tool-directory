@@ -1,0 +1,916 @@
+openapi: 3.0.3
+info:
+  contact:
+    name: Slack developer relations
+    url: https://api.slack.com/support
+  description: One way to interact with the Slack platform is its HTTP RPC-based Web
+    API, a collection of methods requiring OAuth 2.0-based user, bot, or workspace
+    tokens blessed with related OAuth scopes.
+  title: Slack Web API
+  version: 1.7.0
+externalDocs:
+  description: Learn more about the Slack Web API
+  url: https://api.slack.com/web
+servers:
+  - url: https://slack.com/api
+paths:
+  "/chat.postMessage":
+    post:
+      description: Sends a message to a channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/chat.postMessage
+      operationId: chat_postMessage
+      parameters:
+      - description: 'Authentication token. Requires scope: `chat:write`'
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+      - description: Pass true to post the message as the authed user, instead of
+          as a bot. Defaults to false. See [authorship](#authorship) below.
+        in: query
+        name: as_user
+        schema:
+          type: string
+      - description: A JSON-based array of structured attachments, presented as a
+          URL-encoded string.
+        in: query
+        name: attachments
+        schema:
+          type: string
+      - description: A JSON-based array of structured blocks, presented as a URL-encoded
+          string.
+        in: query
+        name: blocks
+        schema:
+          type: string
+      - description: Channel, private group, or IM channel to send message to. Can
+          be an encoded ID, or a name. See [below](#channels) for more details.
+        in: query
+        name: channel
+        required: true
+        schema:
+          type: string
+      - description: Emoji to use as the icon for this message. Overrides `icon_url`.
+          Must be used in conjunction with `as_user` set to `false`, otherwise ignored.
+          See [authorship](#authorship) below.
+        in: query
+        name: icon_emoji
+        schema:
+          type: string
+      - description: URL to an image to use as the icon for this message. Must be
+          used in conjunction with `as_user` set to false, otherwise ignored. See
+          [authorship](#authorship) below.
+        in: query
+        name: icon_url
+        schema:
+          type: string
+      - description: Find and link channel names and usernames.
+        in: query
+        name: link_names
+        schema:
+          type: boolean
+      - description: Disable Slack markup parsing by setting to `false`. Enabled by
+          default.
+        in: query
+        name: mrkdwn
+        schema:
+          type: boolean
+      - description: Change how messages are treated. Defaults to `none`. See [below](#formatting).
+        in: query
+        name: parse
+        schema:
+          type: string
+      - description: Used in conjunction with `thread_ts` and indicates whether reply
+          should be made visible to everyone in the channel or conversation. Defaults
+          to `false`.
+        in: query
+        name: reply_broadcast
+        schema:
+          type: boolean
+      - description: How this field works and whether it is required depends on other
+          fields you use in your API call. [See below](#text_usage) for more detail.
+        in: query
+        name: text
+        schema:
+          type: string
+      - description: Provide another message's `ts` value to make this message a reply.
+          Avoid using a reply's `ts` value; use its parent instead.
+        in: query
+        name: thread_ts
+        schema:
+          type: string
+      - description: Pass true to enable unfurling of primarily text-based content.
+        in: query
+        name: unfurl_links
+        schema:
+          type: boolean
+      - description: Pass false to disable unfurling of media content.
+        in: query
+        name: unfurl_media
+        schema:
+          type: boolean
+      - description: Set your bot's user name. Must be used in conjunction with `as_user`
+          set to false, otherwise ignored. See [authorship](#authorship) below.
+        in: query
+        name: username
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                additionalProperties: false
+                description: Schema for successful response of chat.postMessage method
+                properties:
+                  channel:
+                    "$ref": "#/components/schemas/defs_channel"
+                  message:
+                    "$ref": "#/components/schemas/objs_message"
+                  ok:
+                    "$ref": "#/components/schemas/defs_ok_true"
+                  ts:
+                    "$ref": "#/components/schemas/defs_ts"
+                required:
+                - ok
+                - channel
+                - ts
+                - message
+                title: chat.postMessage success schema
+                type: object
+        default:
+          description: Typical error response if too many attachments are included
+          content:
+            application/json:
+              schema:
+                additionalProperties: false
+                description: Schema for error response chat.postMessage method
+                properties:
+                  callstack:
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                    type: string
+                  error:
+                    enum:
+                    - channel_not_found
+                    - not_in_channel
+                    - is_archived
+                    - msg_too_long
+                    - no_text
+                    - too_many_attachments
+                    - rate_limited
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    type: string
+                  ok:
+                    "$ref": "#/components/schemas/defs_ok_false"
+                required:
+                - ok
+                - error
+                title: chat.postMessage error schema
+                type: object
+      security:
+      - slackAuth:
+        - chat:write:user
+        - chat:write:bot
+      tags:
+      - chat
+security:
+  - slackAuth: []
+components:
+  securitySchemes:
+    slackAuth:
+      type: http
+      scheme: bearer
+      description: Credentials or access token for API
+  schemas:
+    blocks:
+      description: This is a very loose definition, in the future, we'll populate this
+        with deeper schema in this definition namespace.
+      items:
+        additionalProperties: true
+        properties:
+          type:
+            type: string
+        required:
+        - type
+        type: object
+      title: Block Kit blocks
+      type: array
+    defs_app_id:
+      pattern: "^A[A-Z0-9]{1,}$"
+      title: App ID
+      type: string
+    defs_bot_id:
+      pattern: "^B[A-Z0-9]{8,}$"
+      title: Bot User ID
+      type: string
+    defs_channel:
+      pattern: "^[CGD][A-Z0-9]{8,}$"
+      title: Channel-like conversation ID
+      type: string
+    defs_channel_id:
+      pattern: "^[C][A-Z0-9]{2,}$"
+      title: Channel ID
+      type: string
+    defs_channel_name:
+      title: Name of a channel
+      type: string
+    defs_comment_id:
+      pattern: "^Fc[A-Z0-9]{8,}$"
+      title: File Comment ID
+      type: string
+    defs_dm_id:
+      pattern: "^[D][A-Z0-9]{8,}$"
+      title: Direct Message Channel ID
+      type: string
+    defs_enterprise_id:
+      pattern: "^[E][A-Z0-9]{8,}$"
+      title: Enterprise ID
+      type: string
+    defs_enterprise_name:
+      title: Name of the enterprise org
+      type: string
+    defs_enterprise_user_id:
+      pattern: "^[WU][A-Z0-9]{8,}$"
+      title: Enterprise User ID
+      type: string
+    defs_file_id:
+      pattern: "^[F][A-Z0-9]{8,}$"
+      title: File ID
+      type: string
+    defs_group_id:
+      pattern: "^[G][A-Z0-9]{8,}$"
+      title: Private Channel ID
+      type: string
+    defs_ok_false:
+      enum:
+      - false
+      title: default failure response
+      type: boolean
+    defs_ok_true:
+      enum:
+      - true
+      title: default success response
+      type: boolean
+    defs_optional_app_id:
+      pattern: "^(A[A-Z0-9]{1,})?$"
+      title: App ID or empty string
+      type: string
+    defs_pinned_info:
+      additionalProperties: false
+      title: Info for a pinned item
+      type: object
+    defs_reminder_id:
+      pattern: "^Rm[A-Z0-9]{8,}$"
+      title: Reminder ID
+      type: string
+    defs_subteam_id:
+      pattern: "^S[A-Z0-9]{2,}$"
+      title: Subteam ID
+      type: string
+    defs_team:
+      pattern: "^[T][A-Z0-9]{2,}$"
+      title: Team ID
+      type: string
+    defs_topic_purpose_creator:
+      pattern: "^[UW][A-Z0-9]{8,}$|^$"
+      title: User ID or empty string, used for topic and purpose creation
+      type: string
+    defs_ts:
+      pattern: "^\\d{10}\\.\\d{6}$"
+      title: Timestamp in format 0123456789.012345
+      type: string
+    defs_user_id:
+      pattern: "^[UW][A-Z0-9]{2,}$"
+      title: User ID
+      type: string
+    defs_workspace_id:
+      pattern: "^[TE][A-Z0-9]{8,}$"
+      title: Team or Enterprise ID
+      type: string
+    objs_bot_profile:
+      additionalProperties: false
+      properties:
+        app_id:
+          "$ref": "#/components/schemas/defs_app_id"
+        deleted:
+          type: boolean
+        icons:
+          additionalProperties: false
+          properties:
+            image_36:
+              format: uri
+              type: string
+            image_48:
+              format: uri
+              type: string
+            image_72:
+              format: uri
+              type: string
+          required:
+          - image_36
+          - image_48
+          - image_72
+          type: object
+        id:
+          "$ref": "#/components/schemas/defs_bot_id"
+        name:
+          type: string
+        team_id:
+          "$ref": "#/components/schemas/defs_team"
+        updated:
+          type: integer
+      required:
+      - id
+      - deleted
+      - name
+      - updated
+      - app_id
+      - icons
+      - team_id
+      title: Bot Profile Object
+      type: object
+    objs_comment:
+      additionalProperties: false
+      properties:
+        comment:
+          type: string
+        created:
+          type: integer
+        id:
+          "$ref": "#/components/schemas/defs_comment_id"
+        is_intro:
+          type: boolean
+        is_starred:
+          type: boolean
+        num_stars:
+          type: integer
+        pinned_info:
+          "$ref": "#/components/schemas/defs_pinned_info"
+        pinned_to:
+          items:
+            "$ref": "#/components/schemas/defs_channel"
+          type: array
+        reactions:
+          items:
+            "$ref": "#/components/schemas/objs_reaction"
+          type: array
+        timestamp:
+          type: integer
+        user:
+          "$ref": "#/components/schemas/defs_user_id"
+      required:
+      - id
+      - created
+      - timestamp
+      - user
+      - is_intro
+      - comment
+      title: File Comment Object
+      type: object
+    objs_enterprise_user:
+      additionalProperties: false
+      properties:
+        enterprise_id:
+          "$ref": "#/components/schemas/defs_enterprise_id"
+        enterprise_name:
+          "$ref": "#/components/schemas/defs_enterprise_name"
+        id:
+          "$ref": "#/components/schemas/defs_enterprise_user_id"
+        is_admin:
+          type: boolean
+        is_owner:
+          type: boolean
+        teams:
+          items:
+            "$ref": "#/components/schemas/defs_team"
+          type: array
+          uniqueItems: true
+      required:
+      - id
+      - enterprise_id
+      - enterprise_name
+      - is_admin
+      - is_owner
+      - teams
+      type: object
+    objs_external_org_migrations:
+      properties:
+        current:
+          items:
+            properties:
+              date_started:
+                type: integer
+              team_id:
+                type: string
+            required:
+            - team_id
+            - date_started
+            type: object
+          type: array
+        date_updated:
+          type: integer
+      required:
+      - date_updated
+      - current
+      title: External Org Migrations
+      type: object
+    objs_file:
+      additionalProperties: false
+      properties:
+        channels:
+          items:
+            "$ref": "#/components/schemas/defs_channel_id"
+          type: array
+          uniqueItems: true
+        comments_count:
+          type: integer
+        created:
+          type: integer
+        date_delete:
+          type: integer
+        display_as_bot:
+          type: boolean
+        editable:
+          type: boolean
+        editor:
+          "$ref": "#/components/schemas/defs_user_id"
+        external_id:
+          type: string
+        external_type:
+          type: string
+        external_url:
+          format: uri
+          type: string
+        filetype:
+          type: string
+        groups:
+          items:
+            "$ref": "#/components/schemas/defs_group_id"
+          type: array
+          uniqueItems: true
+        has_rich_preview:
+          type: boolean
+        id:
+          "$ref": "#/components/schemas/defs_file_id"
+        image_exif_rotation:
+          type: integer
+        ims:
+          items:
+            "$ref": "#/components/schemas/defs_dm_id"
+          type: array
+          uniqueItems: true
+        is_external:
+          type: boolean
+        is_public:
+          type: boolean
+        is_starred:
+          type: boolean
+        is_tombstoned:
+          type: boolean
+        last_editor:
+          "$ref": "#/components/schemas/defs_user_id"
+        mimetype:
+          type: string
+        mode:
+          type: string
+        name:
+          type: string
+        non_owner_editable:
+          type: boolean
+        num_stars:
+          type: integer
+        original_h:
+          type: integer
+        original_w:
+          type: integer
+        permalink:
+          format: uri
+          type: string
+        permalink_public:
+          format: uri
+          type: string
+        pinned_info:
+          "$ref": "#/components/schemas/defs_pinned_info"
+        pinned_to:
+          items:
+            "$ref": "#/components/schemas/defs_channel"
+          type: array
+        pretty_type:
+          type: string
+        preview:
+          type: string
+        public_url_shared:
+          type: boolean
+        reactions:
+          items:
+            "$ref": "#/components/schemas/objs_reaction"
+          type: array
+        shares:
+          additionalProperties: false
+          properties:
+            private:
+              additionalProperties: false
+            public:
+              additionalProperties: false
+          type: object
+        size:
+          type: integer
+        source_team:
+          "$ref": "#/components/schemas/defs_team"
+        state:
+          type: string
+        thumb_1024:
+          format: uri
+          type: string
+        thumb_1024_h:
+          type: integer
+        thumb_1024_w:
+          type: integer
+        thumb_160:
+          format: uri
+          type: string
+        thumb_360:
+          format: uri
+          type: string
+        thumb_360_h:
+          type: integer
+        thumb_360_w:
+          type: integer
+        thumb_480:
+          format: uri
+          type: string
+        thumb_480_h:
+          type: integer
+        thumb_480_w:
+          type: integer
+        thumb_64:
+          format: uri
+          type: string
+        thumb_720:
+          format: uri
+          type: string
+        thumb_720_h:
+          type: integer
+        thumb_720_w:
+          type: integer
+        thumb_80:
+          format: uri
+          type: string
+        thumb_800:
+          format: uri
+          type: string
+        thumb_800_h:
+          type: integer
+        thumb_800_w:
+          type: integer
+        thumb_960:
+          format: uri
+          type: string
+        thumb_960_h:
+          type: integer
+        thumb_960_w:
+          type: integer
+        thumb_tiny:
+          type: string
+        timestamp:
+          type: integer
+        title:
+          type: string
+        updated:
+          type: integer
+        url_private:
+          format: uri
+          type: string
+        url_private_download:
+          format: uri
+          type: string
+        user:
+          type: string
+        user_team:
+          "$ref": "#/components/schemas/defs_team"
+        username:
+          type: string
+      title: file object
+      type: object
+    objs_icon:
+      properties:
+        image_102:
+          type: string
+        image_132:
+          type: string
+        image_230:
+          type: string
+        image_34:
+          type: string
+        image_44:
+          type: string
+        image_68:
+          type: string
+        image_88:
+          type: string
+        image_default:
+          type: boolean
+      type: object
+    objs_message:
+      additionalProperties: false
+      properties:
+        attachments:
+          items:
+            additionalProperties: false
+            properties:
+              fallback:
+                type: string
+              id:
+                type: integer
+              image_bytes:
+                type: integer
+              image_height:
+                type: integer
+              image_url:
+                type: string
+              image_width:
+                type: integer
+            required:
+            - id
+            type: object
+          minItems: 1
+          type: array
+          uniqueItems: true
+        blocks:
+          "$ref": "#/components/schemas/blocks"
+        bot_id:
+          items:
+            "$ref": "#/components/schemas/defs_bot_id"
+        bot_profile:
+          "$ref": "#/components/schemas/objs_bot_profile"
+        client_msg_id:
+          type: string
+        comment:
+          "$ref": "#/components/schemas/objs_comment"
+        display_as_bot:
+          type: boolean
+        file:
+          "$ref": "#/components/schemas/objs_file"
+        files:
+          items:
+            "$ref": "#/components/schemas/objs_file"
+          minItems: 1
+          type: array
+          uniqueItems: true
+        icons:
+          additionalProperties: false
+          properties:
+            emoji:
+              type: string
+            image_64:
+              format: uri
+              type: string
+          type: object
+        inviter:
+          "$ref": "#/components/schemas/defs_user_id"
+        is_delayed_message:
+          type: boolean
+        is_intro:
+          type: boolean
+        is_starred:
+          type: boolean
+        last_read:
+          "$ref": "#/components/schemas/defs_ts"
+        latest_reply:
+          "$ref": "#/components/schemas/defs_ts"
+        name:
+          type: string
+        old_name:
+          type: string
+        parent_user_id:
+          "$ref": "#/components/schemas/defs_user_id"
+        permalink:
+          format: uri
+          type: string
+        pinned_to:
+          items:
+            "$ref": "#/components/schemas/defs_channel"
+          type: array
+        purpose:
+          type: string
+        reactions:
+          items:
+            "$ref": "#/components/schemas/objs_reaction"
+          type: array
+        reply_count:
+          type: integer
+        reply_users:
+          items:
+            "$ref": "#/components/schemas/defs_user_id"
+          minItems: 1
+          type: array
+          uniqueItems: true
+        reply_users_count:
+          type: integer
+        source_team:
+          "$ref": "#/components/schemas/defs_workspace_id"
+        subscribed:
+          type: boolean
+        subtype:
+          type: string
+        team:
+          "$ref": "#/components/schemas/defs_workspace_id"
+        text:
+          type: string
+        thread_ts:
+          "$ref": "#/components/schemas/defs_ts"
+        topic:
+          type: string
+        ts:
+          "$ref": "#/components/schemas/defs_ts"
+        type:
+          type: string
+        unread_count:
+          type: integer
+        upload:
+          type: boolean
+        user:
+          "$ref": "#/components/schemas/defs_user_id"
+        user_profile:
+          "$ref": "#/components/schemas/objs_user_profile_short"
+        user_team:
+          "$ref": "#/components/schemas/defs_workspace_id"
+        username:
+          type: string
+      required:
+      - text
+      - type
+      - ts
+      title: Message object
+      type: object
+    objs_paging:
+      additionalProperties: false
+      properties:
+        count:
+          type: integer
+        page:
+          type: integer
+        pages:
+          type: integer
+        per_page:
+          type: integer
+        spill:
+          type: integer
+        total:
+          type: integer
+      required:
+      - page
+      - total
+      title: paging object
+      type: object
+    objs_primary_owner:
+      properties:
+        email:
+          type: string
+        id:
+          type: string
+      required:
+      - id
+      - email
+      type: object
+    objs_reaction:
+      additionalProperties: true
+      properties:
+        count:
+          type: integer
+        name:
+          type: string
+        users:
+          items:
+            "$ref": "#/components/schemas/defs_user_id"
+          type: array
+      required:
+      - name
+      - users
+      - count
+      title: Reaction object
+      type: object
+    objs_reminder:
+      additionalProperties: false
+      properties:
+        complete_ts:
+          type: integer
+        creator:
+          "$ref": "#/components/schemas/defs_user_id"
+        id:
+          "$ref": "#/components/schemas/defs_reminder_id"
+        recurring:
+          type: boolean
+        text:
+          type: string
+        time:
+          type: integer
+        user:
+          "$ref": "#/components/schemas/defs_user_id"
+      required:
+      - id
+      - creator
+      - user
+      - text
+      - recurring
+      type: object
+    objs_team_profile_field:
+      additionalProperties: false
+      properties:
+        field_name:
+          type: string
+        hint:
+          type: string
+        id:
+          pattern: "^X[a-zA-Z0-9]{9,}$"
+          type: string
+        is_hidden:
+          type: boolean
+        label:
+          type: string
+        options:
+          items:
+            "$ref": "#/components/schemas/objs_team_profile_field_option"
+        ordering:
+          type: number
+        possible_values:
+          items:
+            type: string
+          type: array
+        type:
+          enum:
+          - text
+          - date
+          - link
+          - mailto
+          - options_list
+          - user
+          type: string
+      required:
+      - id
+      - ordering
+      - label
+      - hint
+      - type
+      type: object
+    objs_team_profile_field_option:
+      additionalProperties: false
+      properties:
+        is_custom:
+          type: boolean
+        is_multiple_entry:
+          type: boolean
+        is_protected:
+          type: boolean
+        is_scim:
+          type: boolean
+      type: object
+    objs_user_profile_short:
+      additionalProperties: false
+      properties:
+        avatar_hash:
+          type: string
+        display_name:
+          type: string
+        display_name_normalized:
+          type: string
+        first_name:
+          type: string
+        image_72:
+          format: uri
+          type: string
+        is_restricted:
+          type: boolean
+        is_ultra_restricted:
+          type: boolean
+        name:
+          type: string
+        real_name:
+          type: string
+        real_name_normalized:
+          type: string
+        team:
+          "$ref": "#/components/schemas/defs_workspace_id"
+      required:
+      - avatar_hash
+      - image_72
+      - first_name
+      - real_name
+      - display_name
+      - team
+      - name
+      - is_restricted
+      - is_ultra_restricted
+      type: object

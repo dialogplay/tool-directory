@@ -1,0 +1,84 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: IPinfoAPI
+  description: IPinfoAPI provides ip information where your access.
+servers:
+  - url: https://ipinfo.io
+paths:
+  /:
+    get:
+      summary: Retrieves ip information where your access.
+      tags:
+        - ip
+      operationId: getIp
+      security:
+        - apiKey: []
+      responses:
+        '200':
+          description: Successful response with ip data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ip'
+        '400':
+          description: Bad request. Invalid or missing parameters.
+        '401':
+          description: Unauthorized. Missing or invalid API key.
+        '404':
+          description: Not found. The specified location was not found.
+        '429':
+          description: Too many access.
+        '500':
+          description: Internal server error. Something went wrong on the server side.
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: query
+      name: token
+      description: API key to access the service.
+  schemas:
+    Ip:
+      type: object
+      properties:
+        ip:
+          type: string
+          description: IP address.
+          example: "203.0.113.0"
+        hostname:
+          type: string
+          description: Host name.
+          example: "xxx.ocn.ne.jp"
+        city:
+          type: string
+          description: City name.
+          example: "Chōfu"
+        region:
+          type: string
+          description: Region name.
+          example: "Tokyo"
+        country:
+          type: string
+          description: Country name.
+          example: "Japan"
+        loc:
+          type: string
+          description: location (latitude, longitude).
+          example: "35.6592,139.5484"
+        org:
+          type: string
+          description: Organization.
+          example: "NTT"
+        postal:
+          type: string
+          description: Postal code.
+          example: "100-0000"
+        timezone:
+          type: string
+          description: Timezone.
+          example: "Asia/Tokyo"
+        readme:
+          type: string
+          description: Warning when token not specified.
+          example: "https://ipinfo.io/missingauth"

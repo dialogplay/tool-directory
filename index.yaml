@@ -2,3 +2,9 @@ version: 0.0.1-dev
 integrations:
   - id: openweather
     name: OpenWeather
+  - id: ipinfo
+    name: IPinfo
+  - id: timeapi
+    name: TimeAPI
+  - id: slack_chat
+    name: SlackChatAPI
