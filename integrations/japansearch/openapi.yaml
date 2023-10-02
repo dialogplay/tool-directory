@@ -1,0 +1,367 @@
+openapi: 3.0.3
+info:
+  title: japansearch
+  description: Japansearch is Digital Archive operated by the National Diet Library. This is a simple api for japansearch
+  version: 0.0.1
+externalDocs:
+  description: Find out more about Japansearch
+  url: https://jpsearch.go.jp/static/developer/
+servers:
+  - url: https://jpsearch.go.jp/api
+paths:
+  /item/search/jps-cross:
+    get:
+      tags:
+        - jps-cross
+      summary: Finds items by keywords
+      description: Multiple keyword values can be provided
+      operationId: findItemsByKeyword
+      parameters:
+        - in: query
+          name: keyword
+          description: Keyword values that need to be considered for find
+          schema:
+            type: array
+            items:
+              type: string
+              example: edo
+        - in: query
+          name: from
+          description: Start position for find. Default value is 0.
+          schema:
+            type: number
+        - in: query
+          name: size
+          description: Retreive size for find. Default value is 200.
+          schema:
+            type: number
+        - in: query
+          name: keywordOr
+          description: When true, performs an OR search when multiple keywords are specified.
+          schema:
+            type: boolean
+        - in: query
+          name: f-db
+          description: Filter by database id.
+          schema:
+            type: array
+            items:
+              type: string
+              example: dignl
+        - in: query
+          name: f-cm
+          description: Filter by media type.
+          schema:
+            type: array
+            items:
+              type: string
+              example: book
+        - in: query
+          name: f-contents
+          description: Filter by content publication status.
+          schema:
+            type: array
+            items:
+              type: string
+              example: internet
+        - in: query
+          name: fc-category
+          description: Refine to exclude specific categories.
+          schema:
+            type: array
+            items:
+              type: string
+              example: -book
+        - in: query
+          name: fc-caccess
+          description: Refine to exclude specific content publication status.
+          schema:
+            type: array
+            items:
+              type: string
+              example: -internet
+        - in: query
+          name: fc-db
+          description: Refine to exclude specific database.
+          schema:
+            type: array
+            items:
+              type: string
+              example: -bibnl
+        - in: query
+          name: q-tempo
+          description: Search using the "Time" item.
+          schema:
+            type: array
+            items:
+              type: string
+              example: 江戸
+        - in: query
+          name: q-loc
+          description: Search using the "Location" item.
+          schema:
+            type: array
+            items:
+              type: string
+              example: 世田谷
+        - in: query
+          name: q-contributor
+          description: Search using the "Person" item.
+          schema:
+            type: array
+            items:
+              type: string
+              example: 徳川家康
+        - in: query
+          name: r-timespan
+          description: Search using normalized age information.
+          schema:
+            type: string
+            example: 1500-01-01,1600-12-31
+        - in: query
+          name: g-coordinates
+          description: Search using normalized geographic information.
+          schema:
+            type: string
+            example: 35.679813,139.7435848,10km
+        - in: query
+          name: image
+          description: Search for similar images using items with thumbnail images.
+          schema:
+            type: string
+            example: cobas-94554
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Result'
+        '400':
+          description: Invalid status value
+components:
+  schemas:
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      xml:
+        name: '##default'
+    Result:
+      required: 
+        - "list"
+        - "hit"
+        - "from"
+        - "facets"
+      properties: 
+        list: 
+          type: "array"
+          items: 
+            type: "object"
+            properties: 
+              id: 
+                type: "string"
+              common: 
+                required: 
+                  - "id"
+                  - "title"
+                  - "titleYomi"
+                  - "lastUpdatedDate"
+                  - "linkUrl"
+                  - "thumbnailUrl"
+                  - "contentsType"
+                  - "contentsRightsType"
+                  - "contentsAccess"
+                  - "category"
+                  - "contributor"
+                  - "location"
+                  - "coordinates"
+                  - "provider"
+                  - "ownerOrg"
+                  - "database"
+                  - "apiType"
+                  - "subCategory"
+                  - "access"
+                  - "dclass"
+                properties: 
+                  id: 
+                    type: "string"
+                  title: 
+                    type: "string"
+                  titleYomi: 
+                    type: "string"
+                  lastUpdatedDate: 
+                    type: "number"
+                  linkUrl: 
+                    type: "string"
+                  thumbnailUrl: 
+                    type: "array"
+                    items: 
+                      type: "string"
+                  contentsType: 
+                    type: "string"
+                  contentsRightsType: 
+                    type: "string"
+                  contentsAccess: 
+                    type: "string"
+                  category: 
+                    type: "array"
+                    items: 
+                      type: "string"
+                  contributor: 
+                    type: "array"
+                    items: 
+                      type: "string"
+                  location: 
+                    type: "array"
+                    items: 
+                      type: "string"
+                  coordinates: 
+                    required: 
+                      - "lat"
+                      - "lon"
+                    properties: 
+                      lat: 
+                        type: "number"
+                      lon: 
+                        type: "number"
+                    type: "object"
+                  provider: 
+                    type: "string"
+                  ownerOrg: 
+                    type: "string"
+                  database: 
+                    type: "string"
+                  apiType: 
+                    type: "string"
+                  subCategory: 
+                    type: "array"
+                    items: 
+                      type: "string"
+                  access: 
+                    type: "string"
+                  dclass: 
+                    type: "string"
+                type: "object"
+              rdfindex: 
+                required: 
+                  - "type"
+                  - "temporal"
+                  - "spatial"
+                properties: 
+                  type: 
+                    type: "array"
+                    items: 
+                      type: "string"
+                  temporal: 
+                    type: "array"
+                    items: 
+                      type: "string"
+                  spatial: 
+                    type: "array"
+                    items: 
+                      type: "string"
+                type: "object"
+              kochizu_collection-8-s: 
+                type: "string"
+              kochizu_collection-7-s: 
+                type: "string"
+              kochizu_collection-12-u: 
+                type: "string"
+              kochizu_collection-5-s: 
+                type: "string"
+              kochizu_collection-13-u: 
+                type: "string"
+              kochizu_collection-10-s: 
+                type: "string"
+              kochizu_collection-9-s: 
+                type: "string"
+              kochizu_collection-11-s: 
+                type: "string"
+              kochizu_collection-0-s: 
+                type: "string"
+              kochizu_collection-4-s: 
+                type: "string"
+              kochizu_collection-3-s: 
+                type: "string"
+              kochizu_collection-2-s: 
+                type: "string"
+              kochizu_collection-1-s: 
+                type: "string"
+        hit: 
+          type: "number"
+        from: 
+          type: "number"
+        facets: 
+          type: "array"
+          items: 
+            type: "object"
+            properties: 
+              key: 
+                type: "string"
+              counts: 
+                required: 
+                  - "incr"
+                  - "edu"
+                  - "noncom"
+                  - "com"
+                  - "pdm"
+                  - "uneval"
+                  - "nocr_cont"
+                  - "others"
+                  - "ccby"
+                  - "ccbysa"
+                  - "ccbyncsa"
+                  - "cc0"
+                  - "ccbync"
+                  - "incr_edu"
+                  - "ccbyncnd"
+                  - "undet"
+                  - "ccbynd"
+                  - "nocr_other"
+                properties: 
+                  incr: 
+                    type: "number"
+                  edu: 
+                    type: "number"
+                  noncom: 
+                    type: "number"
+                  com: 
+                    type: "number"
+                  pdm: 
+                    type: "number"
+                  uneval: 
+                    type: "number"
+                  nocr_cont: 
+                    type: "number"
+                  others: 
+                    type: "number"
+                  ccby: 
+                    type: "number"
+                  ccbysa: 
+                    type: "number"
+                  ccbyncsa: 
+                    type: "number"
+                  cc0: 
+                    type: "number"
+                  ccbync: 
+                    type: "number"
+                  incr_edu: 
+                    type: "number"
+                  ccbyncnd: 
+                    type: "number"
+                  undet: 
+                    type: "number"
+                  ccbynd: 
+                    type: "number"
+                  nocr_other: 
+                    type: "number"
+                type: "object"
