@@ -7,12 +7,12 @@ This API requires six arguments.
 
 | name | type | description | runtime |
 | --- | --- | --- | --- |
-| outputType | string | Output type xml or json | true |
-| ellipsoid | string | Geodetic system. GRS80 or bessel | true |
-| latitude1 | number | Latitude of point from | true |
-| longitude1 | number | Longitude of point from | true |
-| latitude2 | number | Latitude of point to | true |
-| longitude2 | number | Longitude of point to | true |
+| outputType | string | Output type xml or json. default value is json | true |
+| ellipsoid | string | Geodetic system. GRS80 or bessel. defaul tvalue is bessel | true |
+| latitude1 | number | Latitude of origin point | true |
+| longitude1 | number | Longitude of origin point | true |
+| latitude2 | number | Latitude of destination point | true |
+| longitude2 | number | Longitude of destination point | true |
 
 ### Response
 This API returns JSON of distance and azimuth information.

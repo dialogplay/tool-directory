@@ -79,13 +79,13 @@ components:
           properties:
             geoLength:
               type: string
-              description: Geo Length
+              description: Geo Length. Distance between two point
               example: 8227.360
             azimuth1:
               type: string
-              description: azimuth1
+              description: azimuth of origin to destination
               example: 45.9278833333333
             azimuth2: 
               type: string
-              description: azimuth2
+              description: azimuth of destination to origin
               example: 225.965988888889
