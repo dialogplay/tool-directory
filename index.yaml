@@ -10,5 +10,5 @@ integrations:
     name: SlackChatAPI
   - id: japansearch
     name: JapansearchAPI
-  - id: gsi-mreversegeocoder
+  - id: gsi-reversegeocoder
     name: GSIreversegeocoderAPI

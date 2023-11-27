@@ -11,7 +11,7 @@ This API requires two arguments.
 | lon | number | Longitude to convert to address | true |
 
 ### Response
-This API returns JSON of current time information.
+This API returns JSON of address information.
 The sample of response is as follows.
 ```JSON
 {
