@@ -15,7 +15,7 @@ This API requires six arguments.
 | longitude2 | number | Longitude of point to | true |
 
 ### Response
-This API returns JSON of current time information.
+This API returns JSON of distance and azimuth information.
 The sample of response is as follows.
 ```JSON
 {

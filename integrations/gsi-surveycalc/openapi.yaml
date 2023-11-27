@@ -4,7 +4,7 @@ info:
   description: 'This is a simple calculation API that can be used to calculate the distance and azimuth between two geo coordinates.'
   version: 0.0.1
 servers:
-  - url: http://vldb.gsi.go.jp
+  - url: https://vldb.gsi.go.jp
 paths:
   /sokuchi/surveycalc/surveycalc/bl2st_calc.pl:
     get:
@@ -16,6 +16,8 @@ paths:
           description: 'Output type xml or json'
           schema:
             type: string
+            enum: [json, xml]
+            default: json
           example: json
         -
           name: ellipsoid
@@ -23,6 +25,8 @@ paths:
           description: 'Geodetic system. GRS80 or bessel'
           schema:
             type: string
+            enum: [bessel, GRS80]
+            default: bessel
           example: bessel
         -
           name: latitude1
