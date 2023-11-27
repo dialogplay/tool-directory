@@ -11,4 +11,4 @@ integrations:
   - id: japansearch
     name: JapansearchAPI
   - id: gsi-reversegeocoder
-    name: GSIreversegeocoderAPI
+    name: GSIReverseGeocoderAPI
