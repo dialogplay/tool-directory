@@ -10,7 +10,7 @@ This API requires one arguments.
 | q | string | Address to convert to geo coordinates | true |
 
 ### Response
-This API returns JSON of current time information.
+This API returns JSON of geo coordinates information.
 The sample of response is as follows.
 ```JSON
 [
