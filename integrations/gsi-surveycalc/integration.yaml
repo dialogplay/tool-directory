@@ -6,7 +6,7 @@ paths:
     get:
       description:
         en: Calculate the distance and azimuth between two geo coordinates. Should be specified from and to geo coordinates.
-        ja: 2点の地理情報（経度、緯度）間の距離と方位角を計算する。2点の地理情報を指定しなければならない。
+        ja: 2点の地理情報（緯度、経度）間の距離と方位角を計算する。2点の地理情報を指定しなければならない。
       parameters:
         - in: query
           name: outputType
