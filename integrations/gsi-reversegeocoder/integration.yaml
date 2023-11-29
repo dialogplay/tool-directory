@@ -1,0 +1,22 @@
+version: 0.0.1
+openApi: ./openapi.yaml
+description: Integration information for using GSI reverse geocoding by LangChain tool
+paths:
+  /reverse-geocoder/LonLatToAddress:
+    get:
+      description:
+        en: Convert geo coordinates to address. Should be specified geo coordinates.
+        ja: 地理情報（緯度、経度）を住所に変換する。地理情報（緯度、経度）を指定しなければならない。
+      parameters:
+        - in: query
+          name: lat
+          description:
+            en: Latitude to convert to address.
+            ja: 住所に変換する緯度。
+          runtime: true
+        - in: query
+          name: lon
+          description:
+            en: Longitude to convert to address.
+            ja: 住所に変換する経度。
+          runtime: true
