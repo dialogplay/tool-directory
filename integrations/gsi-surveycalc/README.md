@@ -1,5 +1,6 @@
 # Integration for Survey calculation API (国土地理院API)
 This integration provides API to calculate distance of two geo coordinates specified by users.
+This tool can calculate distance between two locations without directly entering geo coordinates if LLM knows ones of locations.
 
 ## Get /sokuchi/surveycalc/surveycalc/bl2st_calc.pl
 ### Parameters
