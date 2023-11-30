@@ -1,0 +1,16 @@
+version: 0.0.1
+openApi: ./openapi.yaml
+description: Integration information for using GSI geocoding by LangChain tool
+paths:
+  /address-search/AddressSearch:
+    get:
+      description:
+        en: Convert address to geo coordinates. Should be specified address.
+        ja: 住所を地理情報（緯度、経度）に変換する。住所を指定しなければならない。
+      parameters:
+        - in: query
+          name: q
+          description:
+            en: The address to convert to geo coordinates.
+            ja: 地理情報（緯度、経度）に変換する住所。
+          runtime: true

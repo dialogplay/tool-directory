@@ -1,0 +1,74 @@
+openapi: 3.0.3
+info:
+  title: 'Geocoding API'
+  description: 'This is a simple geocoding API that can use for translate address to geo coordinates.'
+  version: 0.0.1
+servers:
+  - url: https://msearch.gsi.go.jp
+paths:
+  /address-search/AddressSearch:
+    get:
+      tags:
+        - Geocoding
+      summary: 'Gets the geo coordinates of address.'
+      parameters:
+        -
+          name: q
+          in: query
+          description: 'Address or Landmark in Japanese'
+          schema:
+            type: string
+          example: '東京タワー'
+          allowReserved: true
+      responses:
+        200:
+          description: 'geo coordinates'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Geometry'
+        400:
+          description: 'Error message.'
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    Geometry:
+      type: "array"
+      items:
+        type: object
+        properties: 
+          geometry: 
+            type: object
+            properties: 
+              coordinates: 
+                type: array
+                items: 
+                  type: number
+                description: Coordinates
+                example: [135.527472906394,34.6866027171863]
+              type: 
+                type: string
+                description: Type
+                example: Point
+          type: 
+            type: string
+            description: Type
+            example: Feature
+          properties: 
+            type: object
+            properties: 
+              addressCode: 
+                type: string
+                description: Address Code
+                example: 27128
+              title: 
+                type: string
+                description: Title
+                example: 大阪城
+              dataSource: 
+                type: string
+                description: Data Source
+                example: 5
