@@ -1,0 +1,91 @@
+openapi: 3.0.3
+info:
+  title: 'Survey calc API'
+  description: 'This is a simple calculation API that can be used to calculate the distance and azimuth between two geo coordinates.'
+  version: 0.0.1
+servers:
+  - url: https://vldb.gsi.go.jp
+paths:
+  /sokuchi/surveycalc/surveycalc/bl2st_calc.pl:
+    get:
+      summary: 'Calculate the distance and azimuth between two geo coordinates.'
+      parameters:
+        -
+          name: outputType
+          in: query
+          description: 'Output type xml or json'
+          schema:
+            type: string
+            enum: [json, xml]
+            default: json
+          example: json
+        -
+          name: ellipsoid
+          in: query
+          description: 'Geodetic system. GRS80 or bessel'
+          schema:
+            type: string
+            enum: [bessel, GRS80]
+            default: bessel
+          example: bessel
+        -
+          name: latitude1
+          in: query
+          description: 'Latitude of point from'
+          schema:
+            type: number
+          example: 35.6579641891667
+        -
+          name: longitude1
+          in: query
+          description: 'Longitude of point from'
+          schema:
+            type: number
+          example: 139.745384871667
+        -
+          name: latitude2
+          in: query
+          description: 'Latitude of point to'
+          schema:
+            type: number
+          example: 35.7095291111111
+        -
+          name: longitude2
+          in: query
+          description: 'Longitude of point to'
+          schema:
+            type: number
+          example: 139.810713277778
+      responses:
+        200:
+          description: 'distance geo length'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Results'
+        400:
+          description: 'Error message.'
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    Results:
+      type: "object"
+      properties:
+        OutputData:
+          type: object
+          properties:
+            geoLength:
+              type: string
+              description: Geo Length. Distance between two point
+              example: 8227.360
+            azimuth1:
+              type: string
+              description: azimuth of origin to destination
+              example: 45.9278833333333
+            azimuth2: 
+              type: string
+              description: azimuth of destination to origin
+              example: 225.965988888889

@@ -1,0 +1,46 @@
+version: 0.0.1
+openApi: ./openapi.yaml
+description: Integration information for using calculation distance of two points by LangChain tool
+paths:
+  /sokuchi/surveycalc/surveycalc/bl2st_calc.pl:
+    get:
+      description:
+        en: Calculate the distance and azimuth between two geo coordinates. Should be specified from and to geo coordinates.
+        ja: 2点の地理情報（緯度、経度）間の距離と方位角を計算する。2点の地理情報を指定しなければならない。
+      parameters:
+        - in: query
+          name: outputType
+          description:
+            en: Specify output type xml or json
+            ja: 出力形式を指定する xml または json
+          runtime: true
+        - in: query
+          name: ellipsoid
+          description:
+            en: Geodetic system. GRS80 or bessel
+            ja: 楕円体を指定する。世界測地系で計算する GRS80 または 日本測地系で計算する bessel
+          runtime: true
+        - in: query
+          name: latitude1
+          description:
+            en: Latitude of point from
+            ja: 出発点緯度
+          runtime: true
+        - in: query
+          name: longitude1
+          description:
+            en: Longitude of point from
+            ja: 出発点経度
+          runtime: true
+        - in: query
+          name: latitude2
+          description:
+            en: Latitude of point to
+            ja: 到着点緯度
+          runtime: true
+        - in: query
+          name: longitude2
+          description:
+            en: Longitude of point to
+            ja: 到着点経度
+          runtime: true

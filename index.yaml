@@ -14,3 +14,5 @@ integrations:
     name: GSIGeocoderAPI
   - id: gsi-reversegeocoder
     name: GSIReverseGeocoderAPI
+  - id: gsi-surveycalc
+    name: GSISurveyCalcAPI
