@@ -6,11 +6,11 @@ paths:
     get:
       description:
         en: Convert address to geo coordinates. Should be specified address.
-        ja: 住所を地理情報（経度、緯度）に変換する。住所を指定しなければならない。
+        ja: 住所を地理情報（緯度、経度）に変換する。住所を指定しなければならない。
       parameters:
         - in: query
           name: q
           description:
             en: The address to convert to geo coordinates.
-            ja: 地理情報（経度、緯度）に変換する住所。
+            ja: 地理情報（緯度、経度）に変換する住所。
           runtime: true
