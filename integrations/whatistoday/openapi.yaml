@@ -1,0 +1,314 @@
+openapi: 3.0.3
+info:
+  title: 'What is today API'
+  description: 'This is a simple API that can tell what is today.'
+  version: 0.0.1
+externalDocs:
+  description: Find out more about What is today API
+  url: https://note.com/sooz/n/n94cc1c71ad97
+servers:
+  - url: https://api.whatistoday.cyou/v2
+paths:
+  /anniv/{mmdd}:
+    get:
+      tags:
+        - Anniversary
+      summary: 'What anniversary is it today?'
+      parameters:
+        -
+          name: mmdd
+          in: path
+          required: true
+          description: 'MMDD format date.'
+          schema:
+            type: string
+          example: 0214
+      responses:
+        200:
+          description: 'Anniversary'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Anniversary'
+        400:
+          description: 'Error message.'
+          content:
+            application/json:
+              schema:
+                type: string
+        404:
+          description: 'Not found.'
+          content:
+            application/json:
+              schema:
+                type: string
+  /anniv1_img/{mmdd}.png:
+    get:
+      tags:
+        - AnniversaryImage
+      summary: 'Get image of what anniversary is it today?'
+      parameters:
+        -
+          name: mmdd
+          in: path
+          required: true
+          description: 'MMDD format date.'
+          schema:
+            type: string
+          example: '0214'
+      responses:
+        200:
+          description: 'AnniversaryImage'
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+        400:
+          description: 'Error message.'
+          content:
+            application/json:
+              schema:
+                type: string
+        404:
+          description: 'Not found.'
+          content:
+            application/json:
+              schema:
+                type: string
+  /md/{mmdd}:
+    get:
+      tags:
+        - Merchandising
+      summary: 'What merchandising day is it today?'
+      parameters:
+        -
+          name: mmdd
+          in: path
+          required: true
+          description: 'MMDD format date.'
+          schema:
+            type: string
+          example: '0214'
+      responses:
+        200:
+          description: 'Merchandising'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Merchandising'
+        400:
+          description: 'Error message.'
+          content:
+            application/json:
+              schema:
+                type: string
+        404:
+          description: 'Not found.'
+          content:
+            application/json:
+              schema:
+                type: string
+  /birthflower/{mmdd}:
+    get:
+      tags:
+        - BirthFlower
+      summary: 'What birthflower is it today?'
+      parameters:
+        -
+          name: mmdd
+          in: path
+          required: true
+          description: 'MMDD format date.'
+          schema:
+            type: string
+          example: '0214'
+      responses:
+        200:
+          description: 'BirthFlower'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BirthFlower'
+        400:
+          description: 'Error message.'
+          content:
+            application/json:
+              schema:
+                type: string
+        404:
+          description: 'Not found.'
+          content:
+            application/json:
+              schema:
+                type: string
+  /famousbirthday/{mmdd}:
+    get:
+      tags:
+        - famousbirthday
+      summary: 'Which great birthday is it today?'
+      parameters:
+        -
+          name: mmdd
+          in: path
+          required: true
+          description: 'MMDD format date.'
+          schema:
+            type: string
+          example: '0214'
+      responses:
+        200:
+          description: 'FamousBirthday'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FamousBirthday'
+        400:
+          description: 'Error message.'
+          content:
+            application/json:
+              schema:
+                type: string
+        404:
+          description: 'Not found.'
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    Anniversary:
+      type: object
+      properties:
+        _count:
+          type: integer
+          description: 'Counts'
+          example: 1
+        _last:
+          type: string
+          description: 'is last'
+          nullable: true
+        _items: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              anniv1: 
+                type: string
+                example: '世界気象デー'
+              anniv2: 
+                type: string
+              anniv3: 
+                type: string
+              anniv4: 
+                type: string
+              anniv5: 
+                type: string
+              key: 
+                type: string
+                example: '83'
+              mmdd: 
+                type: string
+                example: '0323'
+    Merchandising:
+      type: object
+      properties:
+        _count:
+          type: integer
+          description: 'Counts'
+          example: 1
+        _last:
+          type: string
+          description: 'is last'
+          nullable: true
+        _items: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              fashion1: 
+                type: string
+                example: '春物(プロパー)'
+              fashion2: 
+                type: string
+              food1: 
+                type: string
+                example: '冬メニュー'
+              food2: 
+                type: string
+              gift1: 
+                type: string
+                example: 'バレンタイン'
+              gift2: 
+                type: string
+              key: 
+                type: string
+                example: '45'
+              life1: 
+                type: string
+                example: '新生活(入園・入学・フレッシャーズ)'
+              life2: 
+                type: string
+              mmdd: 
+                type: string
+                example: '0214'
+    BirthFlower:
+      type: object
+      properties:
+        _count:
+          type: integer
+          description: 'Counts'
+          example: 1
+        _last:
+          type: string
+          description: 'is last'
+          nullable: true
+        _items: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              flower: 
+                type: string
+                example: 'シュンラン'
+              key: 
+                type: string
+                example: '45'
+              lang: 
+                type: string
+                description: 'language of flower'
+                example: '素直なしぐさ'
+              mmdd: 
+                type: string
+                example: '0214'
+    FamousBirthday:
+      type: object
+      properties:
+        _count:
+          type: integer
+          description: 'Counts'
+          example: 1
+        _last:
+          type: string
+          description: 'is last'
+          nullable: true
+        _items: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              key: 
+                type: string
+                example: '7qfmexz8qu8d'
+              lifespan: 
+                type: string
+                example: '1820-1893'
+              mmdd: 
+                type: string
+                example: '0214'
+              name: 
+                type: string
+                example: '清水次郎長'
+              profile: 
+                type: string
+                example: '侠客・博徒'

@@ -1,0 +1,64 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: Integration information for using whatistoday by Langchain tool
+paths:
+  /anniv/{mmdd}:
+    get:
+      description:
+        en: What anniversary is it today. Should be specified MMDD format date.
+        ja: 今日は何の記念日かを取得する。日付を MMDD 形式で指定しなければならない。
+      parameters:
+        - in: path
+          name: mmdd
+          description:
+            en: The month and date for which to retrieve of what is today.
+            ja: 記念日を調べる月日。
+          runtime: true
+  /anniv1_img/{mmdd}.png:
+    get:
+      description:
+        en: Retrieve image of what anniversary is it today. Should be specified MMDD format date.
+        ja: 今日は何の記念日かの画像を取得する。日付を MMDD 形式で指定しなければならない。
+      parameters:
+        - in: path
+          name: mmdd
+          description:
+            en: The month and date for which to retrieve of what is today.
+            ja: 記念日を調べる月日。
+          runtime: true
+  /md/{mmdd}:
+    get:
+      description:
+        en: What kind of promotion is suitable today for fashion, life, gift and food. Should be specified MMDD format date.
+        ja: ファッション、生活、ギフト、食品の販促用に今日は何の日かを取得する。日付を MMDD 形式で指定しなければならない。
+      parameters:
+        - in: path
+          name: mmdd
+          description:
+            en: The month and date for which to retrieve of what is today.
+            ja: 今日は何の日を取得する月日。
+          runtime: true
+  /birthflower/{mmdd}:
+    get:
+      description:
+        en: Get today's birth flower. Should be specified MMDD format date.
+        ja: 今日の誕生花を取得する。日付を MMDD 形式で指定しなければならない。
+      parameters:
+        - in: path
+          name: mmdd
+          description:
+            en: The month and date for which to retrieve of today's birth flower.
+            ja: 誕生花を調べる年月。
+          runtime: true
+  /famousbirthday/{mmdd}:
+    get:
+      description:
+        en: Which great birthday is it today. Should be specified MMDD format date.
+        ja: 今日はどの偉人の誕生日かを取得する。日付を MMDD 形式で指定しなければならない。
+      parameters:
+        - in: path
+          name: mmdd
+          description:
+            en: The month and date for which to retrieve of which great birthday is it today.
+            ja: 偉人の誕生日を調べる年月。
+          runtime: true
