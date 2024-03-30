@@ -16,3 +16,5 @@ integrations:
     name: GSIReverseGeocoderAPI
   - id: gsi-surveycalc
     name: GSISurveyCalcAPI
+  - id: jmaforecast
+    name: JMAForecastAPI

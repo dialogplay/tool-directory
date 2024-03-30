@@ -1,0 +1,237 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: JMAForecastAPI
+  description: JMAForecastAPI provides weather data in Japan.
+servers:
+  - url: https://www.jma.go.jp/bosai
+paths:
+  /forecast/data/overview_forecast/{area}.json:
+    get:
+      summary: Retrieves overview forecast for a specific area.
+      tags:
+        - overview_forecast
+      parameters:
+        - in: path
+          name: area
+          schema:
+            type: string
+          description: The location for which to retrieve overview forecast (Area code is bellow, 北海道=016000,青森県=020000,秋田県=050000,岩手県=030000,宮城県=040000,山形県=060000,福島県=070000,宮城県=080000,栃木県=090000,群馬県=100000,埼玉県=110000,東京都=130000,千葉県=120000,神奈川県=140000,長野県=200000,山梨県=190000,静岡県=220000,愛知県=230000,岐阜県=210000,三重県=240000,新潟県=150000,富山県=160000,石川県=170000,福井県=180000,滋賀県=250000,京都府=260000,大阪府=270000,兵庫県=280000,奈良県=290000,和歌山県=300000,岡山県=330000,広島県=340000,島根県=320000,鳥取県=310000,徳島県=360000,香川県=370000,愛媛県=380000,高知県=390000,山口県=350000,福岡県=400000,大分県=440000,長崎県=420000,佐賀県=410000,熊本県=430000,宮崎県=450000,鹿児島県=460100,沖縄県=471000).
+          example: 130000
+          required: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Overview'
+        '400':
+          description: Bad request. Invalid or missing parameters.
+        '404':
+          description: Not found. The specified location was not found.
+        '500':
+          description: Internal server error. Something went wrong on the server side.
+  /forecast/data/forecast/{area}.json:
+    get:
+      summary: Retrieves forecast for a specific area.
+      tags:
+        - forecast
+      parameters:
+        - in: path
+          name: area
+          schema:
+            type: string
+          description: The location for which to retrieve forecast (Area code is bellow, 北海道=016000,青森県=020000,秋田県=050000,岩手県=030000,宮城県=040000,山形県=060000,福島県=070000,宮城県=080000,栃木県=090000,群馬県=100000,埼玉県=110000,東京都=130000,千葉県=120000,神奈川県=140000,長野県=200000,山梨県=190000,静岡県=220000,愛知県=230000,岐阜県=210000,三重県=240000,新潟県=150000,富山県=160000,石川県=170000,福井県=180000,滋賀県=250000,京都府=260000,大阪府=270000,兵庫県=280000,奈良県=290000,和歌山県=300000,岡山県=330000,広島県=340000,島根県=320000,鳥取県=310000,徳島県=360000,香川県=370000,愛媛県=380000,高知県=390000,山口県=350000,福岡県=400000,大分県=440000,長崎県=420000,佐賀県=410000,熊本県=430000,宮崎県=450000,鹿児島県=460100,沖縄県=471000).
+          example: 130000
+          required: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forecast'
+        '400':
+          description: Bad request. Invalid or missing parameters.
+        '404':
+          description: Not found. The specified location was not found.
+        '500':
+          description: Internal server error. Something went wrong on the server side.
+components:
+  schemas:
+    Overview:
+      type: object
+      properties:
+        publishingOffice:
+          type: string
+          description: Publishing Office.
+          example: 気象庁
+        reportDatetime:
+          type: string
+          description: Report datetime.
+          example: "2024-03-27T16:37:00+09:00"
+        targetArea:
+          type: string
+          description: Area name.
+          example: "東京都"
+        headlineText:
+          type: string
+          description: Headline text.
+        text:
+          type: string
+          description: Overview forecast.
+    Forecast:
+      type: array
+      items:
+        type: object
+        properties:
+          publishingOffice: 
+            type: string
+            example: "気象庁"
+          reportDatetime: 
+            type: string
+            format: date-time
+            example: "2024-03-24T11:00:00+09:00"
+          timeSeries: 
+            type: array
+            items: 
+              type: object
+              properties: 
+                timeDefines: 
+                  type: array
+                  items: 
+                    type: string
+                    example: "2024-03-24T11:00:00+09:00"
+                areas: 
+                  type: array
+                  items: 
+                    type: object
+                    properties: 
+                      area: 
+                        type: object
+                        properties: 
+                          name: 
+                            type: string
+                            example: "東京地方"
+                          code: 
+                            type: string
+                            example: "130010"
+                      #
+                      weatherCodes: 
+                        type: array
+                        items: 
+                          type: string
+                          example: "202"
+                      weathers: 
+                        type: array
+                        items: 
+                          type: string
+                          example: "くもり　夕方　一時　雨"
+                      winds: 
+                        type: array
+                        items: 
+                          type: string
+                          example: "南の風"
+                      waves: 
+                        type: array
+                        items: 
+                          type: string
+                          example: "０．５メートル"
+                      #
+                      pops: 
+                        type: array
+                        items: 
+                          type: string
+                          example: "10"
+                      #
+                      temps: 
+                        type: array
+                        items: 
+                          type: string
+                          example: "10"
+                      #
+                      reliabilities: 
+                        type: array
+                        items: 
+                          type: string
+                          example: "A"
+                      #
+                      tempsMin: 
+                        type: array
+                        items: 
+                          type: string
+                          example: "11"
+                      tempsMinUpper: 
+                        type: array
+                        items: 
+                          type: string
+                          example: "12"
+                      tempsMinLower: 
+                        type: array
+                        items: 
+                          type: string
+                          example: "10"
+                      tempsMax: 
+                        type: array
+                        items: 
+                          type: string
+                          example: "21"
+                      tempsMaxUpper: 
+                        type: array
+                        items: 
+                          type: string
+                          example: "24"
+                      tempsMaxLower: 
+                        type: array
+                        items: 
+                          type: string
+                          example: "18"
+          tempAverage: 
+            type: object
+            properties: 
+              areas: 
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    area: 
+                      type: object
+                      properties: 
+                        name: 
+                          type: string
+                          example: "東京"
+                        code: 
+                          type: string
+                          example: "44132"
+                    min: 
+                      type: string
+                      example: "7.0"
+                    max: 
+                      type: string
+                      example: "16.5"
+          precipAverage: 
+            type: object
+            properties: 
+              areas: 
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    area: 
+                      type: object
+                      properties: 
+                        name: 
+                          type: string
+                          example: "東京"
+                        code: 
+                          type: string
+                          example: "44132"
+                    min: 
+                      type: string
+                      example: "13.5"
+                    max: 
+                      type: string
+                      example: "37.1"
+
+
