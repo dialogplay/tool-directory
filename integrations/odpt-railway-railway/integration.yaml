@@ -1,0 +1,16 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: Integration information for using ODPT by Langchain tool
+paths:
+  /odpt:Railway:
+    get:
+      description:
+        en: Obtain railway informations from ODPT.
+        ja: ODPTから鉄道の路線情報を取得する。
+      parameters:
+        - in: query
+          name: acl:consumerKey
+          description:
+            en: API key for calling API.
+            ja: APIを呼び出すためのAPIキー。
+          runtime: false
