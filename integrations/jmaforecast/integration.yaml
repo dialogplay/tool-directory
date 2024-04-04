@@ -1,0 +1,28 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: 気象庁の天気予報APIをLangchainツールで使うための設定情報
+paths:
+  /forecast/data/overview_forecast/{area}.json:
+    get:
+      description:
+        en: Retrieves overview forecast for a specific location. Should be specified area code. (Area code is bellow, Hokkaido=016000,Aomori=020000,Akita=050000,Iwate=030000,Miyagi=040000,Yamagata=060000,Fukushima=070000,Miyagi=080000,Tochigi=090000,Gunma=100000,Saitama=110000,Tokyo=130000,Chiba=120000,Kanagawa=140000,Nagano=200000,Yamanashi=190000,Shizuoka=220000,Aichi=230000,Gifu=210000,Mie=240000,Nigata=150000,Toyama=160000,Ishikawa=170000,Fukui=180000,Shiga=250000,Kyoto=260000,Osaka=270000,Hyogo=280000,Nara=290000,Wakayama=300000,Okayama=330000,Hiroshima=340000,Shimane=320000,Tottori=310000,Tokushima=360000,Kagawa=370000,Ehime=380000,Kochi=390000,Yamaguchi=350000,Fukuoka=400000,Oita=440000,Nagasaki=420000,Saga=410000,Kumamoto=430000,Miyazaki=450000,Kagoshima=460100,Okinawa=471000)
+        ja: 指定した地点の天気概況を取得する。エリアコードを指定しなければならない。(エリアコードは、北海道=016000,青森県=020000,秋田県=050000,岩手県=030000,宮城県=040000,山形県=060000,福島県=070000,宮城県=080000,栃木県=090000,群馬県=100000,埼玉県=110000,東京都=130000,千葉県=120000,神奈川県=140000,長野県=200000,山梨県=190000,静岡県=220000,愛知県=230000,岐阜県=210000,三重県=240000,新潟県=150000,富山県=160000,石川県=170000,福井県=180000,滋賀県=250000,京都府=260000,大阪府=270000,兵庫県=280000,奈良県=290000,和歌山県=300000,岡山県=330000,広島県=340000,島根県=320000,鳥取県=310000,徳島県=360000,香川県=370000,愛媛県=380000,高知県=390000,山口県=350000,福岡県=400000,大分県=440000,長崎県=420000,佐賀県=410000,熊本県=430000,宮崎県=450000,鹿児島県=460100,沖縄県=471000)
+      parameters:
+        - in: path
+          name: area
+          description:
+            en: The area code for overview forecast.
+            ja: 天気概況を取得するエリアコード。
+          runtime: true
+  /forecast/data/forecast/{area}.json:
+    get:
+      description:
+        en: Retrieves forecast for a specific location. Should be specified area code. (Area code is bellow, Hokkaido=016000,Aomori=020000,Akita=050000,Iwate=030000,Miyagi=040000,Yamagata=060000,Fukushima=070000,Miyagi=080000,Tochigi=090000,Gunma=100000,Saitama=110000,Tokyo=130000,Chiba=120000,Kanagawa=140000,Nagano=200000,Yamanashi=190000,Shizuoka=220000,Aichi=230000,Gifu=210000,Mie=240000,Nigata=150000,Toyama=160000,Ishikawa=170000,Fukui=180000,Shiga=250000,Kyoto=260000,Osaka=270000,Hyogo=280000,Nara=290000,Wakayama=300000,Okayama=330000,Hiroshima=340000,Shimane=320000,Tottori=310000,Tokushima=360000,Kagawa=370000,Ehime=380000,Kochi=390000,Yamaguchi=350000,Fukuoka=400000,Oita=440000,Nagasaki=420000,Saga=410000,Kumamoto=430000,Miyazaki=450000,Kagoshima=460100,Okinawa=471000)
+        ja: 指定した地点の天気予報を取得する。エリアコードを指定しなければならない。(エリアコードは、北海道=016000,青森県=020000,秋田県=050000,岩手県=030000,宮城県=040000,山形県=060000,福島県=070000,宮城県=080000,栃木県=090000,群馬県=100000,埼玉県=110000,東京都=130000,千葉県=120000,神奈川県=140000,長野県=200000,山梨県=190000,静岡県=220000,愛知県=230000,岐阜県=210000,三重県=240000,新潟県=150000,富山県=160000,石川県=170000,福井県=180000,滋賀県=250000,京都府=260000,大阪府=270000,兵庫県=280000,奈良県=290000,和歌山県=300000,岡山県=330000,広島県=340000,島根県=320000,鳥取県=310000,徳島県=360000,香川県=370000,愛媛県=380000,高知県=390000,山口県=350000,福岡県=400000,大分県=440000,長崎県=420000,佐賀県=410000,熊本県=430000,宮崎県=450000,鹿児島県=460100,沖縄県=471000)
+      parameters:
+        - in: path
+          name: area
+          description:
+            en: The area code for forecast.
+            ja: 天気予報を取得するエリアコード。
+          runtime: true

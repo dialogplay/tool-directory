@@ -18,3 +18,5 @@ integrations:
     name: GSISurveyCalcAPI
   - id: whatistoday
     name: WhatIsTodayAPI
+  - id: jmaforecast
+    name: JMAForecastAPI
