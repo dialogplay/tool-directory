@@ -26,3 +26,5 @@ integrations:
     name: ODPTRailWayRailwayAPI
   - id: odpt-railway-station
     name: ODPTRailWayStationAPI
+  - id: odpt-bus-busstoppole
+    name: ODPTBusStopPoleAPI

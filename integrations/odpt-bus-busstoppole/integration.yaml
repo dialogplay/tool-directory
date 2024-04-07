@@ -1,0 +1,46 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: Integration information for using ODPT by Langchain tool
+paths:
+  /odpt:BusstopPole:
+    get:
+      description:
+        en: Obtain bus stop pole informations from ODPT.
+        ja: ODPTからバス停(標柱)の情報を取得する。
+      parameters:
+        - in: query
+          name: acl:consumerKey
+          description:
+            en: API key for calling API.
+            ja: APIを呼び出すためのAPIキー。
+          runtime: false
+  /places:odpt:BusstopPole:
+    get:
+      description:
+        en: Obtain bus stop pole informations near specified geo coordinates. Should be specified geo coordinates.
+        ja: 地理情報（緯度、経度）を用いて、付近のバス停(標柱)の情報を取得する。地理情報（緯度、経度）を指定しなければならない。
+      parameters:
+        - in: query
+          name: acl:consumerKey
+          description:
+            en: API key for calling API.
+            ja: APIを呼び出すためのAPIキー。
+          runtime: false
+        - in: query
+          name: lat
+          description:
+            en: Center latitude of the acquired range, decimal notation, the geodetic system WGS84.
+            ja: 取得する範囲の中心緯度を指定、10進数表記、測地系はWGS84。
+          runtime: true
+        - in: query
+          name: lon
+          description:
+            en: Center longitude of the acquired range, decimal notation, the geodetic system WGS84.
+            ja: 取得する範囲の中心経度を指定、10進数表記、測地系はWGS84。
+          runtime: true
+        - in: query
+          name: radius
+          description:
+            en: Radius of the acquisition range in meters, the range of 0-4000m.
+            ja: 取得する範囲の半径をメートルで指定、0-4000mの範囲。
+          runtime: true
