@@ -19,20 +19,32 @@ This API requires at least one argument.
 This API returns JSON of bus stop pole information.
 The sample of response is as follows.
 ```JSON
-[ {
-  "@context" : "http://vocab.odpt.org/context_odpt_BusstopPole.jsonld,",
-  "@type" : "odpt:BusstopPole",
-  "owl:sameAs" : "odpt.BusstopPole:Toei.Akabaneekihigashiguchi.21.1",
-  "dc:date" : "2017-11-14T17:44:05+09:00",
-  "dc:title" : "赤羽駅東口",
-  "odpt:kana" : "あかばねえきひがしぐち",
-  "geo:long" : 139.7214941,
-  "geo:lat" : 35.7790549,
-  "odpt:busroutePattern" : [ "odpt.BusroutePattern:Toei.Ou57.40301.1", "odpt.BusroutePattern:Toei.Ou57.40301.2", "odpt.BusroutePattern:Toei.Ou57.40302.2" ],
-  "odpt:operator" : [ "odpt.Operator:Toei" ],
-  "odpt:busstopPoleNumber" : "1",
-  "odpt:busstopTimetable" : [ "odpt.BusstopPoleTimetable:Toei.Ou57.Akabaneekihigashiguchi.21.1.Toshimagochoumedanchi.Holiday", "odpt.BusstopPoleTimetable:Toei.Ou57.Akabaneekihigashiguchi.21.1.Toshimagochoumedanchi.Saturday", "odpt.BusstopPoleTimetable:Toei.Ou57.Akabaneekihigashiguchi.21.1.Toshimagochoumedanchi.Weekday" ]
-} ]
+[
+  {
+    "@context": "http://vocab.odpt.org/context_odpt_BusstopPole.jsonld,",
+    "@type": "odpt:BusstopPole",
+    "owl:sameAs": "odpt.BusstopPole:Toei.Akabaneekihigashiguchi.21.1",
+    "dc:date": "2017-11-14T17:44:05+09:00",
+    "dc:title": "赤羽駅東口",
+    "odpt:kana": "あかばねえきひがしぐち",
+    "geo:long": 139.7214941,
+    "geo:lat": 35.7790549,
+    "odpt:busroutePattern": [
+      "odpt.BusroutePattern:Toei.Ou57.40301.1",
+      "odpt.BusroutePattern:Toei.Ou57.40301.2",
+      "odpt.BusroutePattern:Toei.Ou57.40302.2"
+    ],
+    "odpt:operator": [
+      "odpt.Operator:Toei"
+    ],
+    "odpt:busstopPoleNumber": "1",
+    "odpt:busstopTimetable": [
+      "odpt.BusstopPoleTimetable:Toei.Ou57.Akabaneekihigashiguchi.21.1.Toshimagochoumedanchi.Holiday",
+      "odpt.BusstopPoleTimetable:Toei.Ou57.Akabaneekihigashiguchi.21.1.Toshimagochoumedanchi.Saturday",
+      "odpt.BusstopPoleTimetable:Toei.Ou57.Akabaneekihigashiguchi.21.1.Toshimagochoumedanchi.Weekday"
+    ]
+  }
+]
 ```
 
 
@@ -57,20 +69,32 @@ This API requires at least four arguments.
 This API returns JSON of bus stop pole information.
 The sample of response is as follows.
 ```JSON
-[ {
-  "@context" : "http://vocab.odpt.org/context_odpt_BusstopPole.jsonld,",
-  "@type" : "odpt:BusstopPole",
-  "owl:sameAs" : "odpt.BusstopPole:Toei.Akabaneekihigashiguchi.21.1",
-  "dc:date" : "2017-11-14T17:44:05+09:00",
-  "dc:title" : "赤羽駅東口",
-  "odpt:kana" : "あかばねえきひがしぐち",
-  "geo:long" : 139.7214941,
-  "geo:lat" : 35.7790549,
-  "odpt:busroutePattern" : [ "odpt.BusroutePattern:Toei.Ou57.40301.1", "odpt.BusroutePattern:Toei.Ou57.40301.2", "odpt.BusroutePattern:Toei.Ou57.40302.2" ],
-  "odpt:operator" : [ "odpt.Operator:Toei" ],
-  "odpt:busstopPoleNumber" : "1",
-  "odpt:busstopTimetable" : [ "odpt.BusstopPoleTimetable:Toei.Ou57.Akabaneekihigashiguchi.21.1.Toshimagochoumedanchi.Holiday", "odpt.BusstopPoleTimetable:Toei.Ou57.Akabaneekihigashiguchi.21.1.Toshimagochoumedanchi.Saturday", "odpt.BusstopPoleTimetable:Toei.Ou57.Akabaneekihigashiguchi.21.1.Toshimagochoumedanchi.Weekday" ]
-} ]
+[
+  {
+    "@context": "http://vocab.odpt.org/context_odpt_BusstopPole.jsonld,",
+    "@type": "odpt:BusstopPole",
+    "owl:sameAs": "odpt.BusstopPole:Toei.Akabaneekihigashiguchi.21.1",
+    "dc:date": "2017-11-14T17:44:05+09:00",
+    "dc:title": "赤羽駅東口",
+    "odpt:kana": "あかばねえきひがしぐち",
+    "geo:long": 139.7214941,
+    "geo:lat": 35.7790549,
+    "odpt:busroutePattern": [
+      "odpt.BusroutePattern:Toei.Ou57.40301.1",
+      "odpt.BusroutePattern:Toei.Ou57.40301.2",
+      "odpt.BusroutePattern:Toei.Ou57.40302.2"
+    ],
+    "odpt:operator": [
+      "odpt.Operator:Toei"
+    ],
+    "odpt:busstopPoleNumber": "1",
+    "odpt:busstopTimetable": [
+      "odpt.BusstopPoleTimetable:Toei.Ou57.Akabaneekihigashiguchi.21.1.Toshimagochoumedanchi.Holiday",
+      "odpt.BusstopPoleTimetable:Toei.Ou57.Akabaneekihigashiguchi.21.1.Toshimagochoumedanchi.Saturday",
+      "odpt.BusstopPoleTimetable:Toei.Ou57.Akabaneekihigashiguchi.21.1.Toshimagochoumedanchi.Weekday"
+    ]
+  }
+]
 ```
 
 
