@@ -6,7 +6,7 @@ paths:
     get:
       description:
         en: Obtain day of week/date classification (calendar) information.
-        ja: 曜日・日付区分（カレンダー）の情報を取得する。
+        ja: 曜日・日付区分(odpt:Calendar)の内容を取得する。
       parameters:
         - in: query
           name: acl:consumerKey
@@ -17,8 +17,8 @@ paths:
   /odpt:Operator:
     get:
       description:
-        en: Obtain day of week/date classification (calendar) information.
-        ja: 曜日・日付区分（カレンダー）の情報を取得する。
+        en: Obtain day of public transportation operator information.
+        ja: 公共交通機関の事業者(odpt:Operator)の内容を取得する。
       parameters:
         - in: query
           name: acl:consumerKey

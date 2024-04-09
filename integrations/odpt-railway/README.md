@@ -18,43 +18,49 @@ This API requires at least one argument.
 This API returns JSON of railway information.
 The sample of response is as follows.
 ```JSON
-[ {
-  "@context" : "http://vocab.odpt.org/context_odpt.jsonld",
-  "@id" : "urn:ucode:_00001C000000000000010000030FD7E5",
-  "@type" : "odpt:Railway",
-  "dc:date" : "2017-01-13T15:10:00+09:00",
-  "owl:sameAs" : "odpt.Railway:JR-East.ChuoRapid",
-  "dc:title" : "中央線快速",
-  "odpt:railwayTitle" : {
-    "ja" : "中央線快速",
-    "en" : "Chuo Rapid Line"
-  },
-  "odpt:operator" : "odpt.Operator:JR-East",
-  "odpt:ascendingRailDirection" : "odpt.RailDirection:Outbound",
-  "odpt:descendingRailDirection" : "odpt.RailDirection:Inbound",
-  "odpt:stationOrder" : [ {
-    "odpt:index" : 1,
-    "odpt:station" : "odpt.Station:JR-East.ChuoRapid.Tokyo",
-    "odpt:stationTitle" : {
-      "ja" : "東京",
-      "en" : "Tokyo"
-    }
-  }, {
-    "odpt:index" : 2,
-    "odpt:station" : "odpt.Station:JR-East.ChuoRapid.Kanda",
-    "odpt:stationTitle" : {
-      "ja" : "神田",
-      "en" : "Kanda"
-    }
-  }, {
-    "odpt:index" : 3,
-    "odpt:station" : "odpt.Station:JR-East.ChuoRapid.Ochanomizu",
-    "odpt:stationTitle" : {
-      "ja" : "御茶ノ水",
-      "en" : "Ochanomizu"
-    }
-  } ]
-} ]
+[
+  {
+    "@context": "http://vocab.odpt.org/context_odpt.jsonld",
+    "@id": "urn:ucode:_00001C000000000000010000030FD7E5",
+    "@type": "odpt:Railway",
+    "dc:date": "2017-01-13T15:10:00+09:00",
+    "owl:sameAs": "odpt.Railway:JR-East.ChuoRapid",
+    "dc:title": "中央線快速",
+    "odpt:railwayTitle": {
+      "ja": "中央線快速",
+      "en": "Chuo Rapid Line"
+    },
+    "odpt:operator": "odpt.Operator:JR-East",
+    "odpt:ascendingRailDirection": "odpt.RailDirection:Outbound",
+    "odpt:descendingRailDirection": "odpt.RailDirection:Inbound",
+    "odpt:stationOrder": [
+      {
+        "odpt:index": 1,
+        "odpt:station": "odpt.Station:JR-East.ChuoRapid.Tokyo",
+        "odpt:stationTitle": {
+          "ja": "東京",
+          "en": "Tokyo"
+        }
+      },
+      {
+        "odpt:index": 2,
+        "odpt:station": "odpt.Station:JR-East.ChuoRapid.Kanda",
+        "odpt:stationTitle": {
+          "ja": "神田",
+          "en": "Kanda"
+        }
+      },
+      {
+        "odpt:index": 3,
+        "odpt:station": "odpt.Station:JR-East.ChuoRapid.Ochanomizu",
+        "odpt:stationTitle": {
+          "ja": "御茶ノ水",
+          "en": "Ochanomizu"
+        }
+      }
+    ]
+  }
+]
 ```
 
 

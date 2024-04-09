@@ -1,5 +1,5 @@
 # Integration for ODPT API
-This integration provides API for obtaining ODPT.
+This integration provides ODPT's common APIs: Calendar and Operator.
 
 ## Get /odpt:Calendar
 ### Parameters
@@ -44,18 +44,20 @@ This API requires at least one argument.
 This API returns JSON of operator information.
 The sample of response is as follows.
 ```JSON
-[ {
-  "@context" : "http://vocab.odpt.org/context_odpt.jsonld",
-  "@id" : "urn:ucode:_00001C000000000000010000030FD7E5",
-  "@type" : "odpt:Operator",
-  "dc:date" : "2017-01-13T15:10:00+09:00",
-  "owl:sameAs" : "odpt.Operator:JR-East",
-  "dc:title" : "JR東日本",
-  "odpt:operatorTitle" : {
-    "ja" : "JR東日本",
-    "en" : "JR East"
+[
+  {
+    "@context": "http://vocab.odpt.org/context_odpt.jsonld",
+    "@id": "urn:ucode:_00001C000000000000010000030FD7E5",
+    "@type": "odpt:Operator",
+    "dc:date": "2017-01-13T15:10:00+09:00",
+    "owl:sameAs": "odpt.Operator:JR-East",
+    "dc:title": "JR東日本",
+    "odpt:operatorTitle": {
+      "ja": "JR東日本",
+      "en": "JR East"
+    }
   }
-} ]
+]
 ```
 
 

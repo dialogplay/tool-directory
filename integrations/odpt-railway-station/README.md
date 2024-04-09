@@ -19,22 +19,24 @@ This API requires at least one argument.
 This API returns JSON of station information.
 The sample of response is as follows.
 ```JSON
-[ {
-  "@context" : "http://vocab.odpt.org/context_odpt.jsonld",
-  "@id" : "urn:ucode:_00001C000000000000010000030FD7E5",
-  "@type" : "odpt:Station",
-  "dc:date" : "2017-01-13T15:10:00+09:00",
-  "owl:sameAs" : "odpt.Station:JR-East.Yamanote.Tokyo",
-  "dc:title" : "東京",
-  "odpt:stationTitle" : {
-    "ja" : "東京",
-    "en" : "Tokyo"
-  },
-  "odpt:operator" : "odpt.Operator:JR-East",
-  "odpt:railway" : "odpt.Railway:JR-East.Yamanote",
-  "geo:long" : 139.1234,
-  "geo:lat" : 35.1234
-} ]
+[
+  {
+    "@context": "http://vocab.odpt.org/context_odpt.jsonld",
+    "@id": "urn:ucode:_00001C000000000000010000030FD7E5",
+    "@type": "odpt:Station",
+    "dc:date": "2017-01-13T15:10:00+09:00",
+    "owl:sameAs": "odpt.Station:JR-East.Yamanote.Tokyo",
+    "dc:title": "東京",
+    "odpt:stationTitle": {
+      "ja": "東京",
+      "en": "Tokyo"
+    },
+    "odpt:operator": "odpt.Operator:JR-East",
+    "odpt:railway": "odpt.Railway:JR-East.Yamanote",
+    "geo:long": 139.1234,
+    "geo:lat": 35.1234
+  }
+]
 ```
 
 
