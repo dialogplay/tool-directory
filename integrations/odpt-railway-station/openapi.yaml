@@ -73,6 +73,82 @@ paths:
           description: 'Internal Server Error.'
         503:
           description: 'Service Unavailable.'
+  /places/odpt:Station:
+    get:
+      tags:
+        - Station
+      summary: 'Station information'
+      security:
+        - apiKey: []
+      parameters:
+        -
+          name: lat
+          in: query
+          description: 'Specify the center latitude of the acquired range, decimal notation, the geodetic system WGS84'
+          schema:
+            type: number
+        -
+          name: lon
+          in: query
+          description: 'Specify the center longitude of the acquired range, decimal notation, the geodetic system WGS84'
+          schema:
+            type: number
+        -
+          name: radius
+          in: query
+          description: 'Specify the radius of the acquisition range in meters, the range of 0-4000m'
+          schema:
+            type: number
+        -
+          name: owl:sameAs
+          in: query
+          description: 'data identifier alternative'
+          schema:
+            type: string
+        -
+          name: dc:title
+          in: query
+          description: 'station name in japanese. e.g: 東京,新宿,上野'
+          schema:
+            type: string
+          example: 東京
+        -
+          name: odpt:operator
+          in: query
+          description: 'operator id based on odpt'
+          schema:
+            type: string
+        -
+          name: odpt:railway
+          in: query
+          description: 'railway id belonging the station'
+          schema:
+            type: string
+        -
+          name: odpt:stationCode
+          in: query
+          description: 'station number. e.g: OH01=小田急新宿駅'
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'Station'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Station'
+        400:
+          description: 'Bad Request. Parameter error.'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
 components:
   securitySchemes:
     apiKey:

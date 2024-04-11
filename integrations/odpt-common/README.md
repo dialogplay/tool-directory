@@ -15,18 +15,20 @@ This API requires at least one argument.
 This API returns JSON of calendar information.
 The sample of response is as follows.
 ```JSON
-[ {
-  "@context" : "http://vocab.odpt.org/context_odpt.jsonld",
-  "@id" : "urn:ucode:_00001C000000000000010000030FD7E5",
-  "@type" : "odpt:Calendar",
-  "dc:date" : "2017-01-13T15:10:00+09:00",
-  "owl:sameAs" : "odpt.Calendar:Weekday",
-  "dc:title" : "平日",
-  "odpt:calendarTitle" : {
-    "ja" : "平日",
-    "en" : "Weekday"
+[
+  {
+    "@context": "http://vocab.odpt.org/context_odpt.jsonld",
+    "@id": "urn:ucode:_00001C000000000000010000030FD7E5",
+    "@type": "odpt:Calendar",
+    "dc:date": "2017-01-13T15:10:00+09:00",
+    "owl:sameAs": "odpt.Calendar:Weekday",
+    "dc:title": "平日",
+    "odpt:calendarTitle": {
+      "ja": "平日",
+      "en": "Weekday"
+    }
   }
-} ]
+]
 ```
 
 
