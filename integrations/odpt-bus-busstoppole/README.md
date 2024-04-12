@@ -1,5 +1,5 @@
 # Integration for ODPT API
-This integration provides API for obtaining ODPT.
+This integration provides API for obtaining bus stop pole information of the specified public transportation.
 
 ## Get /odpt:BusstopPole
 ### Parameters
