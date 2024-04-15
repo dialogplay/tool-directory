@@ -20,3 +20,11 @@ integrations:
     name: WhatIsTodayAPI
   - id: jmaforecast
     name: JMAForecastAPI
+  - id: odpt-common
+    name: ODPTCommonAPI
+  - id: odpt-railway-railway
+    name: ODPTRailWayRailwayAPI
+  - id: odpt-railway-station
+    name: ODPTRailWayStationAPI
+  - id: odpt-bus-busstoppole
+    name: ODPTBusStopPoleAPI

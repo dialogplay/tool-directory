@@ -1,0 +1,147 @@
+openapi: 3.0.3
+info:
+  title: 'ODPT - Public Transportation Open Data Center API'
+  description: 'This is a API that can retrieve data from the ODPT.'
+  version: 0.0.1
+externalDocs:
+  description: Find out more about ODPT API
+  url: https://developer-dc.odpt.org/
+servers:
+  - url: https://api.odpt.org/api/v4
+paths:
+  /odpt:Railway:
+    get:
+      tags:
+        - Railway
+      summary: 'Railway information'
+      security:
+        - apiKey: []
+      parameters:
+        -
+          name: '@id'
+          in: query
+          description: 'data identifier'
+          schema:
+            type: string
+        -
+          name: owl:sameAs
+          in: query
+          description: 'data identifier alternative'
+          schema:
+            type: string
+        -
+          name: dc:title
+          in: query
+          description: 'railway name in japanese. e.g: 小田原線、京王線、相模原線'
+          schema:
+            type: string
+          example: 千代田線
+        -
+          name: odpt:operator
+          in: query
+          description: 'operator id based on odpt'
+          schema:
+            type: string
+        -
+          name: odpt:lineCode
+          in: query
+          description: 'line code. line symbol. e.g: 小田原線 => OH、丸ノ内線 => M'
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'Railway'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Railway'
+        400:
+          description: 'Bad Request. Parameter error.'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: query
+      name: acl:consumerKey
+      description: API key to access the service.
+  schemas:
+    Railway:
+      type: array
+      items:
+        type: object
+        properties:
+          '@context':
+            type: string
+            description: '@context url based on JSON-LD spec'
+            example: 'http://vocab.odpt.org/context_odpt.jsonld'
+          '@id':
+            type: string
+            description: 'Identifier ucode'
+            example: 'urn:ucode:_00001C000000000000010000030FD7E5'
+          '@type':
+            type: string
+            description: 'Class definition'
+            example: 'odpt:Railway'
+          dc:date:
+            type: string
+            description: 'Data generated date. ISO8601 format'
+            example: '2017-01-13T15:10:00+09:00'
+          owl:sameAs:
+            type: string
+            description: 'Identifier alternative'
+            example: 'odpt.Railway:JR-East.Yamanote'
+          dc:title:
+            type: string
+            description: 'Line name in japanese'
+            example: '山手線'
+          odpt:railwayTitle:
+            type: object
+            properties: 
+              en:
+                type: string
+                example: 'Yamanote Line'
+              ja:
+                type: string
+                example: '山手線'
+            description: 'Line name multilingual'
+          odpt:kana:
+            type: string
+            description: 'Line name kana'
+          odpt:operator:
+            type: string
+            description: 'Railway operator'
+            example: 'odpt.Operator:JR-East'
+          odpt:lineCode:
+            type: string
+            description: 'Line code. Line symbol.'
+            example: 'M'
+          odpt:color:
+            type: string
+            description: 'Line color'
+          ug:region:
+            type: object
+            example: 'GeoJSON format information'
+          odpt:ascendingRailDirection:
+            type: string
+            description: 'Ascending Rail Direction'
+            example: "odpt.RailDirection:Outbound"
+          odpt:descendingRailDirection:
+            type: string
+            description: 'Descending Rail Direction'
+            example: "odpt.RailDirection:Inbound"
+          odpt:stationOrder:
+            type: array
+            items:
+              type: object
+              description: 'List of station order'
+            example: [ { "odpt:index" : 1, "odpt:station" : "odpt.Station:JR-East.ChuoRapid.Tokyo" } ]

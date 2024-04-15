@@ -1,0 +1,231 @@
+openapi: 3.0.3
+info:
+  title: 'ODPT - Public Transportation Open Data Center API'
+  description: 'This is a API that can retrieve data from the ODPT.'
+  version: 0.0.1
+externalDocs:
+  description: Find out more about ODPT API
+  url: https://developer-dc.odpt.org/
+servers:
+  - url: https://api.odpt.org/api/v4
+paths:
+  /odpt:Calendar:
+    get:
+      tags:
+        - Calendar
+      summary: 'Calendar information'
+      security:
+        - apiKey: []
+      parameters:
+        -
+          name: '@id'
+          in: query
+          description: 'data identifier'
+          schema:
+            type: string
+        -
+          name: owl:sameAs
+          in: query
+          description: 'data identifier alternative'
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'Operator'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Calendar'
+        400:
+          description: 'Bad Request. Parameter error.'
+          content:
+            application/json:
+              schema:
+                type: string
+        401:
+          description: 'Unauthorized. Invalid access token.'
+          content:
+            application/json:
+              schema:
+                type: string
+        403:
+          description: 'Forbidden.'
+          content:
+            application/json:
+              schema:
+                type: string
+        404:
+          description: 'Not Found.'
+          content:
+            application/json:
+              schema:
+                type: string
+        500:
+          description: 'Internal Server Error.'
+          content:
+            application/json:
+              schema:
+                type: string
+        503:
+          description: 'Service Unavailable.'
+          content:
+            application/json:
+              schema:
+                type: string
+  /odpt:Operator:
+    get:
+      tags:
+        - Operator
+      summary: 'Operator information'
+      security:
+        - apiKey: []
+      parameters:
+        -
+          name: '@id'
+          in: query
+          description: 'data identifier'
+          schema:
+            type: string
+        -
+          name: owl:sameAs
+          in: query
+          description: 'data identifier alternative'
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'Operator'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operator'
+        400:
+          description: 'Bad Request. Parameter error.'
+          content:
+            application/json:
+              schema:
+                type: string
+        401:
+          description: 'Unauthorized. Invalid access token.'
+          content:
+            application/json:
+              schema:
+                type: string
+        403:
+          description: 'Forbidden.'
+          content:
+            application/json:
+              schema:
+                type: string
+        404:
+          description: 'Not Found.'
+          content:
+            application/json:
+              schema:
+                type: string
+        500:
+          description: 'Internal Server Error.'
+          content:
+            application/json:
+              schema:
+                type: string
+        503:
+          description: 'Service Unavailable.'
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: query
+      name: acl:consumerKey
+      description: API key to access the service.
+    Calendar:
+      type: array
+      items:
+        type: object
+        properties:
+          '@context':
+            type: string
+            description: '@context url based on JSON-LD spec'
+            example: 'http://vocab.odpt.org/context_odpt.jsonld'
+          '@id':
+            type: string
+            description: 'identifier ucode'
+            example: 'urn:ucode:_00001C000000000000010000030FD7E5'
+          '@type':
+            type: string
+            description: 'Class definition'
+            example: 'odpt:Calendar'
+          dc:date:
+            type: string
+            description: 'Data generated date. ISO8601 format'
+            example: '2017-01-13T15:10:00+09:00'
+          owl:sameAs:
+            type: string
+            description: 'identifier alternative'
+            example: 'odpt.Calendar:Weekday'
+          dc:title:
+            type: string
+            description: 'Railway calendar name in japanese'
+            example: '平日'
+          odpt:calendarTitle:
+            type: object
+            properties: 
+              en:
+                type: string
+                example: 'Weekday'
+              ja:
+                type: string
+                example: '平日'
+            description: 'Calendar name multilingual'
+          odpt:day:
+            type: string
+            description: 'List of applicable dates'
+            example: [ "2017-01-13", "2017-01-18" ]
+          odpt:duration:
+            type: string
+            description: 'Calendar validity period'
+            example: '2017-11-13/2017-11-18'
+    Operator:
+      type: array
+      items:
+        type: object
+        properties:
+          '@context':
+            type: string
+            description: '@context url based on JSON-LD spec'
+            example: 'http://vocab.odpt.org/context_odpt.jsonld'
+          '@id':
+            type: string
+            description: 'identifier ucode'
+            example: 'urn:ucode:_00001C000000000000010000030FD7E5'
+          '@type':
+            type: string
+            description: 'Class definition'
+            example: 'odpt:Operator'
+          dc:date:
+            type: string
+            description: 'Data generated date. ISO8601 format'
+            example: '2017-01-13T15:10:00+09:00'
+          owl:sameAs:
+            type: string
+            description: 'identifier alternative'
+            example: 'odpt.Operator:XX'
+          dc:title:
+            type: string
+            description: 'Railway operator name in japanese'
+            example: '○○電鉄'
+          odpt:operatorTitle:
+            type: object
+            properties: 
+              en:
+                type: string
+                example: 'XX Railway'
+              ja:
+                type: string
+                example: '○○電鉄'
+            description: 'Railway operator name multilingual'

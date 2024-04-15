@@ -1,0 +1,28 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: Integration information for using ODPT by Langchain tool
+paths:
+  /odpt:Calendar:
+    get:
+      description:
+        en: Obtain day of week/date classification (calendar) information.
+        ja: 曜日・日付区分(odpt:Calendar)の内容を取得する。
+      parameters:
+        - in: query
+          name: acl:consumerKey
+          description:
+            en: API key for calling API.
+            ja: APIを呼び出すためのAPIキー。
+          runtime: false
+  /odpt:Operator:
+    get:
+      description:
+        en: Obtain day of public transportation operator information.
+        ja: 公共交通機関の事業者(odpt:Operator)の内容を取得する。
+      parameters:
+        - in: query
+          name: acl:consumerKey
+          description:
+            en: API key for calling API.
+            ja: APIを呼び出すためのAPIキー。
+          runtime: false
