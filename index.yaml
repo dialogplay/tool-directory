@@ -28,3 +28,6 @@ integrations:
     name: ODPTRailWayStationAPI
   - id: odpt-bus-busstoppole
     name: ODPTBusStopPoleAPI
+  - id: reinfolib
+    name: RealEstatePricesAPI
+
