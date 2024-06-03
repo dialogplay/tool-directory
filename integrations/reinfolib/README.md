@@ -9,8 +9,8 @@ This API requires at least two arguments.
 | --- | --- | --- | --- |
 | Ocp-Apim-Subscription-Key | string | Access token provided on developer site | false |
 | year | string | Trade year | true |
-| city | string | Local government code / City code in japan of 5 digits | true |
-| station | string | Station code in japan of 6 digits | true |
+| city | string | Local government code / City code in Japan of 5 digits | true |
+| station | string | Station code in Japan of 6 digits | true |
 
 ### Response
 This API returns JSON of real estate price information.
