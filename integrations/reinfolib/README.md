@@ -5,12 +5,12 @@ This integration provides API for obtaining real estate price information.
 ### Parameters
 This API requires at least two arguments.
 
-| name | type | description | runtime |
-| --- | --- | --- | --- |
-| Ocp-Apim-Subscription-Key | string | Access token provided on developer site | false |
-| year | string | Trade year | true |
-| city | string | Local government code / City code in Japan of 5 digits | true |
-| station | string | Station code in Japan of 6 digits | true |
+| name | type | description | runtime | required |
+| --- | --- | --- | --- | --- |
+| Ocp-Apim-Subscription-Key | string | Access token provided on developer site | false | true |
+| year | string | Trade year | true | true |
+| city | string | Local government code / City code in Japan of 5 digits | true | false |
+| station | string | Station code in Japan of 6 digits | true | false |
 
 ### Response
 This API returns JSON of real estate price information.
@@ -58,10 +58,10 @@ The sample of response is as follows.
 ### Parameters
 This API requires at least two arguments.
 
-| name | type | description | runtime |
-| --- | --- | --- | --- |
-| Ocp-Apim-Subscription-Key | string | Access token provided on developer site | false |
-| area | string | Prefecture code | true |
+| name | type | description | runtime | required |
+| --- | --- | --- | --- | --- |
+| Ocp-Apim-Subscription-Key | string | Access token provided on developer site | false | true |
+| area | string | Prefecture code | true | true |
 
 ### Response
 This API returns JSON of local government / city code list.
