@@ -1,0 +1,40 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: Integration information for using Real Estate Information Library API by Langchain tool
+paths:
+  /ex-api/external/XIT001:
+    get:
+      description:
+        en: Obtain Real Estate Prices (Transaction price/Contract price) from real estate information library. Require to specify at least one year parameter.
+        ja: 不動産情報ライブラリから不動産価格（取引価格・成約価格）情報を取得する。少なくとも年を指定する必要がある。都道府県、市区町村は名称ではなくコードで指定する。
+      parameters:
+        - in: header
+          name: Ocp-Apim-Subscription-Key
+          description:
+            en: API key for calling API.
+            ja: APIを呼び出すためのAPIキー。
+          runtime: false
+        - in: query
+          name: city
+          description:
+            en: local government code / city code in japan of 5 digits.
+            ja: 市区町村コード。形式はNNNNN（数字5桁）、NNNNN … 全国地方公共団体コードの上5桁。
+          runtime: true
+  /ex-api/external/XIT002:
+    get:
+      description:
+        en: Obtain local government codes of specified preficture from real estate information library. Require to specify two digits preficture code.
+        ja: 不動産情報ライブラリから全国地方公共団体コード一覧を取得する。2桁の都道府県コードを指定する。
+      parameters:
+        - in: header
+          name: Ocp-Apim-Subscription-Key
+          description:
+            en: API key for calling API.
+            ja: APIを呼び出すためのAPIキー。
+          runtime: false
+        - in: query
+          name: area
+          description:
+            en: prefecture code in japan of 2 digits. ex) 13:Tokyo
+            ja: 都道府県コード。形式はNN（数字2桁）、NN … 都道府県コード。例）13:東京都。
+          runtime: true
