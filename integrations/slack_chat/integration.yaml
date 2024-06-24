@@ -8,8 +8,8 @@ paths:
         en: Sends a message to a channel. Require to specify channel and text.
         ja: チャネルにメッセージを送信する。送信先のチャネルとテキストを指定しなければならない。
       parameters:
-        - in: query
-          name: token
+        - in: header
+          name: Authorization
           description:
             en: User OAuth Token or Bot User OAuth Token for calling API.
             ja: APIを呼び出すための User OAuth Token または Bot User OAuth Token。
