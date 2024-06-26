@@ -22,12 +22,6 @@ paths:
         url: https://api.slack.com/methods/chat.postMessage
       operationId: chat_postMessage
       parameters:
-      - description: 'Authentication token. Requires scope: `chat:write`'
-        in: query
-        name: token
-        required: true
-        schema:
-          type: string
       - description: Pass true to post the message as the authed user, instead of
           as a bot. Defaults to false. See [authorship](#authorship) below.
         in: query
@@ -190,8 +184,10 @@ security:
 components:
   securitySchemes:
     slackAuth:
-      type: http
+      type: apiKey
+      name: Authorization
       scheme: bearer
+      in: header
       description: Credentials or access token for API
   schemas:
     blocks:
