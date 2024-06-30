@@ -1,0 +1,88 @@
+openapi: 3.0.3
+info:
+  title: 'European Central Bank - Euro foreign exchange reference rates'
+  description: 'This is a API that can retrieve Euro foreign exchange reference rates from the European Central Bank.'
+  version: 0.0.1
+externalDocs:
+  description: Find out more about the data
+  url: https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html
+servers:
+  - url: https://www.ecb.europa.eu/stats/eurofxref
+paths:
+  /eurofxref-daily.xml:
+    get:
+      summary: 'Daily euro foreign exchange reference rates. The reference rates are usually updated at around 16:00 CET every working day'
+      responses:
+        200:
+          description: 'Successful response with xref data'
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/eurofxref'
+  /eurofxref-hist-90d.xml:
+    get:
+      summary: 'Last 90 days only historical euro foreign exchange reference rates. The reference rates are usually updated at around 16:00 CET every working day'
+      responses:
+        200:
+          description: 'Successful response with xref data'
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/eurofxref'
+  /eurofxref-hist.xml:
+    get:
+      summary: 'Last 90 days only historical euro foreign exchange reference rates. The reference rates are usually updated at around 16:00 CET every working day'
+      responses:
+        200:
+          description: 'Successful response with xref data'
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/eurofxref'
+components:
+  schemas:
+    eurofxref:
+      type: object
+      xml:
+        name: 'gesmes:Envelope'
+      properties:
+        gesmes:subject:
+          type: string
+          example: 'Reference rates'
+        gesmes:Sender:
+          type: object
+          properties:
+            gesmes:name:
+              type: string
+              example: 'European Central Bank'
+        Cube:
+          type: object
+          properties:
+            Cube:
+              type: array
+              items:
+                type: object
+                properties:
+                  time:
+                    type: string
+                    description: 'date'
+                    example: '2024-06-28'
+                    xml:
+                      attribute: true
+                  Cube:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        currency:
+                          type: string
+                          description: ISO-4217 Currency code
+                          example: 'USD'
+                          xml:
+                            attribute: true
+                        rate:
+                          type: string
+                          description: Foreign exchange rate quoted against the euro (euro is base currency)
+                          example: '1.0705'
+                          xml:
+                            attribute: true
