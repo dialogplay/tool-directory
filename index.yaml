@@ -30,4 +30,6 @@ integrations:
     name: ODPTBusStopPoleAPI
   - id: reinfolib
     name: RealEstatePricesAPI
+  - id: ecb_exchage_rate
+    name: EuroForeignExchangeRates
 

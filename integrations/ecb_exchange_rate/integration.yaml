@@ -1,0 +1,14 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: Retrieve euro foreign exchange reference rates from European Central Bank
+paths:
+  /eurofxref-daily.xml:
+    get:
+      description:
+        en: Retrieve euro foreign exchange reference rates from European central bank.
+        ja: 欧州中央銀行(ECB)から、EUROをベースレートとした日次の為替レートを取得する。パラメータは不要。
+  /eurofxref-hist-90d.xml:
+    get:
+      description:
+        en: Retrieve last 90 days only euro foreign exchange reference rates from European central bank.
+        ja: 欧州中央銀行(ECB)から、直近90日間のEUROをベースレートとした日次の為替レートを取得する。パラメータは不要。
