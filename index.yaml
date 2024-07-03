@@ -30,4 +30,6 @@ integrations:
     name: ODPTBusStopPoleAPI
   - id: reinfolib
     name: RealEstatePricesAPI
+  - id: soumu_musen
+    name: SoumuMusenAPI
 

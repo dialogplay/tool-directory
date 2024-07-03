@@ -1,0 +1,58 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: Integration information for using Ministry of Internal Affairs and Communications. API by LangChain tool
+paths:
+  /musen/list:
+    get:
+      description:
+        en: Obtain Radio Station Infomations.
+        ja: 無線局の詳細情報を取得する。
+      parameters:
+        - in: query
+          name: ST
+          description:
+            en: Search type. Default value is 1.
+            ja: 検索パターン。デフォルト値は 1:免許情報検索
+          default: 1
+          runtime: true
+        - in: query
+          name: DA
+          description:
+            en: Detail additional informations. Default value is 1.
+            ja: 詳細情報を付加するか否か。デフォルト値は 1:詳細情報を付加する
+          default: 1
+          runtime: true
+        - in: query
+          name: SC
+          description:
+            en: Start count. Default value is 1.
+            ja: スタートカウント。デフォルト値は 1
+          default: 1
+          runtime: true
+        - in: query
+          name: DC
+          description:
+            en: Data counts. Default value is 1.
+            ja: 取得件数。デフォルト値は 1:100件
+          default: 1
+          runtime: true
+        - in: query
+          name: OF
+          description:
+            en: Output format. Default value is 2.
+            ja: 出力形式。デフォルト値は 2:JSON
+          default: 2
+          runtime: true
+        - in: query
+          name: OW
+          description:
+            en: Station type. Default value is AT.
+            ja: 無線局の種別。デフォルト値は AT:アマチュア局
+          default: AT
+          runtime: true
+        - in: query
+          name: MA
+          description:
+            en: Call sign.
+            ja: 呼出符号。
+          runtime: true

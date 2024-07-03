@@ -1,0 +1,442 @@
+openapi: 3.0.3
+info:
+  title: '無線局等情報検索 API'
+  description: 'This is a API that can retrieve infomation of radio stations from the Ministry of Internal Affairs and Communications.'
+  version: 0.0.1
+externalDocs:
+  description: Find out more about this API
+  url: https://www.tele.soumu.go.jp/j/musen/webapi/
+servers:
+  - url: https://www.tele.soumu.go.jp
+paths:
+  /musen/list:
+    get:
+      summary: '無線局の詳細情報を取得する機能(一覧取得 API)'
+      parameters:
+        - name: ST
+          in: query
+          description: '検索パターン'
+          schema:
+            type: string
+            enum:
+              - 1
+              - 2
+            default: 1
+            description: >
+              検索パターン:
+               * `1` - 免許情報検索
+               * `2` - 登録情報検索
+          required: true
+        - name: DA
+          in: query
+          description: '詳細情報付加。取得する情報に免許状または登録状の詳細情報を付加するか否かを指定する。'
+          schema:
+            type: string
+            enum:
+              - 0
+              - 1
+            default: 1
+            description: >
+              詳細情報を付加する／しない:
+               * `0` - 詳細情報を付加しない
+               * `1` - 詳細情報を付加する
+          required: true
+        - name: SC
+          in: query
+          description: 'スタートカウント。一覧の取得開始件数を指定する。'
+          schema:
+            type: string
+            default: 1
+          required: true
+        - name: DC
+          in: query
+          description: '取得件数。一覧の取得件数を指定する。3(10000件)を指定した場合は、詳細情報付加(DA)には”0”のみ指定可能'
+          schema:
+            type: string
+            enum:
+              - 1
+              - 2
+              - 3
+            default: 1
+            description: >
+              取得件数:
+               * `1` - 100件
+               * `2` - 500件
+               * `3` - 1000件
+          required: true
+        - name: OF
+          in: query
+          description: '出力形式。出力形式(CSV / JSON / XML)を指定する。'
+          schema:
+            type: string
+            enum:
+              - 1
+              - 2
+              - 3
+            default: 2
+            description: >
+              出力形式:
+               * `1` - CSV
+               * `2` - JSON
+               * `3` - XML
+          required: true
+        - name: OW
+          in: query
+          description: '無線局の種別。無線局の種別を指定する。'
+          schema:
+            type: string
+            enum:
+              - AT
+              - FX
+              - BB
+              - BC
+              - BD
+              - BE
+              - BG
+              - FC
+              - FA
+              - FB
+              - FB_PHS
+              - FP
+              - RP
+              - FBR
+              - MS
+              - MSS
+              - DS
+              - MB
+              - MA
+              - ML
+              - MP
+              - MO
+              - RL
+              - RO
+              - LR
+              - MR
+              - RB
+              - TC
+              - TI
+              - TB
+              - TYP
+              - TG
+              - TJ
+              - TUP
+              - ME
+              - EKT
+              - EV
+              - EBE
+              - EM
+              - EX
+              - EXT
+              - DVT
+              - CR
+              - CR_PA
+              - LO
+              - SM
+              - SS
+              - SP
+              - FX_H
+              - ML_H
+              - MP_H
+              - TC_H
+              - TUP_H
+              - FB_H
+              - FBR_H
+            default: AT
+            description: >
+              出力形式:
+              * `AT` - アマチュア局 
+              * `FX` - 固定局 
+              * `BB` - 特定以外の地上基幹放送局
+              * `BC` - 特定地上基幹放送局 
+              * `BD` - 特定以外の地上基幹放送試験局
+              * `BE` - 特定地上基幹放送試験局 
+              * `BG` - 地上一般放送局 
+              * `FC` - 海岸局 
+              * `FA` - 航空局 
+              * `FB` - 基地局(PHS除く) 
+              * `FB_PHS` - 基地局(PHS) 
+              * `FP` - 携帯基地局 
+              * `RP` - 無線呼出局 
+              * `FBR` - 陸上移動中継局 
+              * `MS` - 船舶局 
+              * `MSS` - 特定船舶局 
+              * `DS` - 遭難自動通報局 
+              * `MB` - 船上通信局 
+              * `MA` - 航空機局 
+              * `ML` - 陸上移動局 
+              * `MP` - 携帯局 
+              * `MO` - 移動局 
+              * `RL` - 無線航行陸上局 
+              * `RO` - 無線航行移動局 
+              * `LR` - 無線標定陸上局 
+              * `MR` - 無線標定移動局 
+              * `RB` - 無線標識局 
+              * `TC` - 地球局 
+              * `TI` - 海岸地球局 
+              * `TB` - 航空地球局 
+              * `TYP` - 携帯基地地球局 
+              * `TG` - 船舶地球局 
+              * `TJ` - 航空機地球局 
+              * `TUP` - 携帯移動地球局 
+              * `ME` - 宇宙局 
+              * `EKT` - 人工衛星局 
+              * `EV` - 衛星基幹放送局 
+              * `EBE` - 衛星基幹放送試験局 
+              * `EM` - 非常局 
+              * `EX` - 実験試験局 
+              * `EXT` - 特定実験試験局 
+              * `DVT` - 実用化試験局 
+              * `CR` - 簡易無線局 
+              * `CR_PA` - 簡易無線局(パーソナル無線) 
+              * `LO` - 構内無線局 
+              * `SM` - 気象援助局 
+              * `SS` - 標準周波数局 
+              * `SP` - 特別業務の局 
+              * `FX_H` - 固定局(包括免許) 
+              * `ML_H` - 陸上移動局(包括免許) 
+              * `MP_H` - 携帯局(包括免許) 
+              * `TC_H` - 地球局(包括免許) 
+              * `TUP_H` - 携帯移動地球局(包括免許) 
+              * `FB_H` - 基地局(包括免許) 
+              * `FBR_H` - 陸上移動中継局(包括免許)
+          required: true
+        - name: MA
+          in: query
+          description: '呼出符号。呼出符号を指定する。'
+          schema:
+            type: string
+        - name: MC
+          in: query
+          description: '文字コード'
+          schema:
+            type: string
+            enum:
+              - 1
+              - 2
+            default: 1
+            description: >
+              文字コード:
+               * `1` - UTF-8
+               * `2` - Shift_JIS
+      responses:
+        200:
+          description: 'Successful'
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/LicenseList'
+                  - $ref: '#/components/schemas/RegistrationList'
+        400:
+          description: 'Bad Request. Parameter error.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        errs:
+          type: object
+          properties:
+            errPost:
+              type: string
+              example: 'ERR'
+            errCount:
+              type: string
+              example: '1'
+        err:
+          type: array
+          items:
+            type: object
+            properties:
+              errCd:
+                type: string
+                example: 'EQ00008'
+              errMsg:
+                type: string
+                example: '無線局の種別(OW)に存在しない無線局の種別が設定されています。'
+    LicenseList:
+      type: object
+      properties:
+        musenInformation:
+          type: object
+          properties:
+            lastUpdateDate:
+              type: string
+              description: 'データ更新日。データの更新年月日を出力します。'
+            totalCount:
+              type: integer
+              description: '総件数。検索結果の総件数を出力します。'
+        musen:
+          type: array
+          items:
+            type: object
+            properties:
+              listInfo:
+                type: object
+                properties:
+                  no:
+                    type: string
+                    description: '「項目番号」を出力します。'
+                    example: '1'
+                  name:
+                    type: string
+                    description: '「免許人名称等」、「法人番号」を出力します。名称+半角空白+”法人番号”(固定文字)+ 数字 13 桁 ※法人番号が無い場合、法人番号は出力されません。'
+                  tdfkCd:
+                    type: string
+                    description: '「無線局の設置場所」を出力します。'
+                  radioStationPurpose:
+                    type: string
+                    description: '該当無線局に設定されている全ての「無線局の目的」を同一項目に出力します。※ 最大 5 件'
+                  licenseDate:
+                    type: string
+                    description: '「免許の年月日」を出力します。'
+              detailInfo:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: '「免許人の氏名又は、名称」又は、「包括免許人の氏名又は、名称」を出力します。'
+                    address:
+                      type: string
+                      description: '「免許人の住所」又は、「包括免許人の住所」を出力します。'
+                    office:
+                      type: string
+                      description: '「免包括免許人の事務所」を出力します。'
+                    radioStationCategory:
+                      type: string
+                      description: '「無線局の種別」又は、「特定無線局の種別」を出力します。'
+                    licenseNumber:
+                      type: string
+                      description: '「免許の番号」又は、「包括免許の番号」、「免許番号・呼出名称」を出力します。'
+                    licenseDate:
+                      type: string
+                      description: '「免許の年月日」又は、「包括免許の年月日」を出力します。'
+                    validTerms:
+                      type: string
+                      description: '「免許の有効期間」又は、「包括免許の有効期間」を出力します。'
+                    radioStationPurpose:
+                      type: string
+                      description: '「無線局の目的」又は、「特定無線局の目的」を出力します。 ※無線局の目的が「基幹放送用」の場合は、「基幹放送の種類」も出力されます。 例)基幹放送用 超短波放送'
+                    radioStationNumber:
+                      type: string
+                      description: '「指定無線局数」を出力します。'
+                    permittedOperatingHours:
+                      type: string
+                      description: '「運用許容時間」を出力します。'
+                    startingLimit:
+                      type: string
+                      description: '「運用開始の期限」を出力します。'
+                    broadcastMatter:
+                      type: string
+                      description: '「放送事項」を出力します。'
+                    broadcastDistrict:
+                      type: string
+                      description: '「放送区域」を出力します。'
+                    commMatter:
+                      type: string
+                      description: '「通信事項」を出力します。'
+                    commPartner:
+                      type: string
+                      description: '「通信の相手方」を出力します。'
+                    identificationSignals:
+                      type: string
+                      description: '「識別信号」を出力します。'
+                    radioEuipmentLocation:
+                      type: string
+                      description: '「無線設備の常置場所」又は、「無線設備の設置場所」、「無線設備の設置場所/常置場所」、「無線設備の設置場所とすることができる区域」、「無線設備の設置場所又は移動範囲」、「無線設備の設置場所若しくは無線設備を設置しようとする区域又は移動範囲」を出力します。'
+                    movementArea:
+                      type: string
+                      description: '「移動範囲」を出力します。'
+                    radioSpec1:
+                      type: string
+                      description: '「電波の形式、周波数及び空中線電力」を出力します。 ※設定されていない項目は空欄となります。 ※アマチュア局(人工衛星等のアマチュア局は除く)の場合は周波数等の一括表示記号を出力します。 ※パーソナル無線の場合、行の最後に「空白\\t空白\\t【空中線電力】」の形式で空中線電力を出力します。 ※アマチュア局(人工衛星等のアマチュア局は除く)及びパーソナル無線以外の場合に「水平走査基幹情報」は「空白\\t【水平走査期間情 報】空白\\t」の形式で出力します。'
+                    workPersonName:
+                      type: string
+                      description: '「認定基幹放送事務者の氏名又は名称」を出力します。'
+                    note:
+                      type: string
+                      description: '「備考」を出力します。'
+    RegistrationList:
+      type: object
+      properties:
+        musenInformation:
+          type: object
+          properties:
+            lastUpdateDate:
+              type: string
+              description: 'データ更新日。データの更新年月日を出力します。'
+            totalCount:
+              type: integer
+              description: '総件数。検索結果の総件数を出力します。'
+        musen:
+          type: array
+          items:
+            type: object
+            properties:
+              listInfo:
+                type: object
+                properties:
+                  no:
+                    type: string
+                    description: '「項目番号」を出力します。'
+                    example: '1'
+                  name:
+                    type: string
+                    description: '「登録人名称等」、「法人番号」を出力します。名称+半角空白+”法人番号”(固定文字)+ 数字 13 桁 ※法人番号が無い場合、法人番号は出力されません。'
+                  itCd:
+                    type: string
+                    description: '「所轄総合通信局」を出力します。'
+                  registrationDate:
+                    type: string
+                    description: '「登録の年月日」を出力します。'
+                  validTerms:
+                    type: string
+                    description: '「登録の有効期間」を出力します。'
+              detailInfo:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: '「登録人の氏名又は、名称」を出力します。'
+                    address:
+                      type: string
+                      description: '「登録人の住所」を出力します。'
+                    radioEquipmentStandard:
+                      type: string
+                      description: '「無線設備の規格」を出力します。'
+                    registrationNumber:
+                      type: string
+                      description: '「登録の番号」を出力します。'
+                    registrationDate:
+                      type: string
+                      description: '「登録の年月日」を出力します。'
+                    validTerms:
+                      type: string
+                      description: '「登録の有効期間」を出力します。'
+                    radioEuipmentLocation:
+                      type: string
+                      description: '「無線設備の設置場所若しくは無線設備を設置しようとする区域又は移動範囲」を出力します。'
+                    radioSpec2:
+                      type: string
+                      description: '「電波の形式、周波数及び空中線電力」を出力します。'
+                    note:
+                      type: string
+                      description: '「備考」を出力します。'
