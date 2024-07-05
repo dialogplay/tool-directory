@@ -31,7 +31,7 @@ paths:
                 $ref: '#/components/schemas/eurofxref'
   /eurofxref-hist.xml:
     get:
-      summary: 'Last 90 days only historical euro foreign exchange reference rates. The reference rates are usually updated at around 16:00 CET every working day'
+      summary: 'Historical euro foreign exchange reference rates. The reference rates are usually updated at around 16:00 CET every working day'
       responses:
         200:
           description: 'Successful response with xref data'
