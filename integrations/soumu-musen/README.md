@@ -86,9 +86,9 @@ The sample of response is as follows.
       }
     },
 
-...
+...省略...
 
-],
+  ],
   "musenInformation": {
     "totalCount": "14",
     "lastUpdateDate": "2024-06-28"
@@ -102,6 +102,6 @@ The sample of response is as follows.
 ```
 input: ST:検索パターン=1、DA:詳細情報=1、SC:スタートカウント=1、DC:取得件数=1、OF:出力形式=2、OW:無線局の種別=AT、MA:呼出符号=JA1RLの免許情報を教えて
 
-output: he API returned a list of radio stations with the call sign \"JA1RL\". The specific information for the station \"JA1RL\" is as follows:\n\n- The station is operated by the Japan Amateur Radio League, Inc.\n- The station is licensed for amateur use.\n- The station is located in Toshima Ward, Tokyo.\n- The station's license was last issued on August 17, 2020, and is valid until August 16, 2025.\n- The station is permitted to operate at all times.\n- The station's call sign is \"JA1RL\".\n- The station is permitted to operate on land, at sea, and in the air.\n\nPlease note that some information has been redacted for privacy reasons. \n\nLet me know if you need more information.
+output: The API returned a list of radio stations with the call sign \"JA1RL\". The specific information for the station \"JA1RL\" is as follows:\n\n- The station is operated by the Japan Amateur Radio League, Inc.\n- The station is licensed for amateur use.\n- The station is located in Toshima Ward, Tokyo.\n- The station's license was last issued on August 17, 2020, and is valid until August 16, 2025.\n- The station is permitted to operate at all times.\n- The station's call sign is \"JA1RL\".\n- The station is permitted to operate on land, at sea, and in the air.\n\nPlease note that some information has been redacted for privacy reasons. \n\nLet me know if you need more information.
 
 ```
