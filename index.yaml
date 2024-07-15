@@ -32,4 +32,6 @@ integrations:
     name: RealEstatePricesAPI
   - id: ecb_exchage_rate
     name: EuroForeignExchangeRates
+  - id: soumu-musen
+    name: SoumuMusenAPI
 
