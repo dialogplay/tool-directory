@@ -1,0 +1,34 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: Integration information for using postcode by Langchain tool
+paths:
+  /postcodes/{new}.json:
+    get:
+      description:
+        en: Retrieve address from postcode. Should be specified postcode.
+        ja: 郵便番号から住所情報を取得する。郵便番号を指定する。
+      parameters:
+        - in: path
+          name: new
+          description:
+            en: Postcode for which to retrieve address.
+            ja: 住所を取得する郵便番号。
+          runtime: true
+  /buildings.json:
+    get:
+      description:
+        en: Retrieve postcodes from building name. Should be specified building name.
+        ja: 建物の名称を指定して郵便番号一覧を取得する。建物名を指定する。
+      parameters:
+        - name: page
+          in: query
+          description:
+            en: Page number.
+            ja: ページ番号。
+          runtime: true
+        - name: s
+          in: query
+          description:
+            en: Building name.
+            ja: 建物名。
+          runtime: true
