@@ -2,8 +2,8 @@ openapi: 3.0.3
 info:
   version: 0.0.12
   title: 郵便番号検索API
-  description: |
-    - https://postcode.teraren.com/ にて提供している郵便番号検索APIの仕様書
+  description:
+    https://postcode.teraren.com/ にて提供している郵便番号検索APIの仕様書
   license:
     name: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
   contact:
@@ -77,7 +77,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
+                type: string
         default:
           description: unexpected error
           content:
@@ -299,7 +299,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
+                type: string
         default:
           description: unexpected error
           content:
@@ -371,7 +371,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
+                type: string
         default:
           description: unexpected error
           content:
