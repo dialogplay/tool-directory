@@ -1,0 +1,661 @@
+openapi: 3.0.3
+info:
+  version: 0.0.12
+  title: 郵便番号検索API
+  description:
+    https://postcode.teraren.com/ にて提供している郵便番号検索APIの仕様書
+  license:
+    name: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
+  contact:
+    name: Yuki Matsukura
+    url: https://twitter.com/matsubokkuri
+servers:
+  - url: https://postcode.teraren.com
+    description: Production
+paths:
+  /healthcheck.json:
+    get:
+      summary: 状態を返却
+      operationId: healthcheck
+      description: サービスの外系監視用エンドポイント
+      tags:
+        - System
+      responses:
+        '200':
+          description: UNIX timestamp(秒)を返却します
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timestamp:
+                    type: integer
+                    example: 1667421167
+                  last_update:
+                    type: string
+                    format: date-time
+                    example: "2024-07-03T01:41:38.000Z"
+                  postcodes_count:
+                    type: integer
+                    example: 143320
+        '504':
+          description: CDNが稼働しているが、アプリケーションサーバが稼働していない場合。
+  /postcodes.json:
+    get:
+      summary: 郵便番号の一覧を取得
+      operationId: getPostcodes
+      description: Postcodeの配列を取得
+      tags:
+        - Postcode
+      parameters:
+        - name: page
+          in: query
+          description: ページ番号
+          required: false
+          example: 1
+          schema:
+            type: integer
+            format: int32
+        - name: s
+          in: query
+          description: 郵便名の部分一致検索
+          required: false
+          example: 六本木ヒルズ
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Postcodeの配列
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Postcode'
+        '404':
+          description: 空の配列
+          content:
+            application/json:
+              schema:
+                type: string
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /postcodes/{new}.json:
+    get:
+      summary: 郵便番号から住所情報を取得
+      operationId: getPostcode
+      description: Postcodeを取得
+      tags:
+        - Postcode
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Postcode'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+        - schema:
+            type: string
+            maxLength: 7
+            minLength: 7
+          name: new
+          in: path
+          description: 郵便番号
+          required: true
+          example: '1066137'
+  /postcodes/{new}.txt:
+    get:
+      summary: 郵便番号から住所情報を取得
+      operationId: getPostcodeText
+      description: 住所の文字列を取得
+      tags:
+        - Postcode
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '東京都港区六本木六本木ヒルズ森タワー（３７階）'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+        - schema:
+            type: string
+            maxLength: 7
+            minLength: 7
+          name: new
+          in: path
+          description: 郵便番号
+          required: true
+          example: '1066137'
+        - schema:
+            type: string
+          name: part
+          in: query
+          description: |
+            住所のどこの区分を取得するか。4と5は特定地点に割り振られた郵便番号の場合に返却されます。
+            - 1: 都道府県
+            - 2: 市町村区
+            - 3: 町域
+            - 4: 番地
+            - 5: 名称
+          required: false
+          example: 1
+  /prefectures.json:
+    get:
+      summary: 都道府県一覧
+      operationId: getPrefectures
+      description: Prefectureの配列を取得
+      tags:
+        - Prefecture
+      parameters:
+        - name: page
+          in: query
+          description: ページ番号
+          required: false
+          example: 1
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of Prefecture
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Prefecture'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /prefectures/{code}.json:
+    get:
+      summary: 市町村区の一覧を取得
+      operationId: getCity
+      description: Cityを取得
+      tags:
+        - Prefecture
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/City'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+        - schema:
+            type: integer
+            default: 1
+            minimum: 1
+            maximum: 47
+          name: code
+          in: path
+          description: 都道府県ID
+          required: true
+          example: 13
+  /prefectures/{code}/cities/{city}.json:
+    get:
+      summary: 市町村区の郵便番号一覧を取得
+      operationId: getCityPostcodes
+      description: 市町村区の郵便番号一覧を取得
+      tags:
+        - Prefecture
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Postcode'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+        - schema:
+            type: integer
+            default: 1
+            minimum: 1
+            maximum: 47
+          name: code
+          in: path
+          description: 都道府県ID
+          required: true
+          example: 13
+        - schema:
+            type: string
+          name: city
+          in: path
+          description: 都道府県ID
+          required: true
+          example: 札幌市北区
+  /buildings.json:
+    get:
+      summary: Buildingの一覧を取得
+      operationId: getBuildings
+      description: Buildingの配列を取得
+      tags:
+        - Building
+      parameters:
+        - name: page
+          in: query
+          description: ページ番号
+          required: false
+          example: 1
+          schema:
+            type: integer
+            format: int32
+        - name: s
+          in: query
+          description: 建物名の部分一致検索
+          required: false
+          example: タワー
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A paged array of Building
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Building'
+        '404':
+          description: 空の配列
+          content:
+            application/json:
+              schema:
+                type: string
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /buildings/{name}.json:
+    get:
+      summary: Buildingを取得
+      operationId: getBuilding
+      description: Buildingを取得
+      tags:
+        - Building
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Building'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+        - schema:
+            type: string
+          name: name
+          in: path
+          description: 建物名
+          required: true
+          example: '中央アエル'
+  /offices.json:
+    get:
+      summary: 事業所割当されている郵便番号の一覧を取得
+      operationId: getOffices
+      description: Postcodeの配列を取得
+      tags:
+        - Office
+      parameters:
+        - name: page
+          in: query
+          description: ページ番号
+          required: false
+          example: 1
+          schema:
+            type: integer
+            format: int32
+        - name: s
+          in: query
+          description: 郵便名の部分一致検索
+          required: false
+          example: 六本木ヒルズ
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Postcodeの配列
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Postcode'
+        '404':
+          description: 空の配列
+          content:
+            application/json:
+              schema:
+                type: string
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Postcode:
+      title: Postcode
+      type: object
+      xml:
+        name: Postcode
+      x-tags:
+        - Postcode
+      description: 郵便番号エンティティ
+      properties:
+        jis:
+          type: string
+          minLength: 6
+          maxLength: 6
+          example: '13103'
+          description: 全国地方公共団体コード（JIS X0401、X0402）
+        old:
+          type: string
+          minLength: 3
+          maxLength: 3
+          example: '106'
+          description: （旧）郵便番号（3桁）
+        new:
+          type: string
+          minLength: 7
+          maxLength: 7
+          example: '1066190'
+          description: 郵便番号（7桁）
+        prefecture_kana:
+          type: string
+          example: ホッカイドウ
+          description: 都道府県名
+        prefecture_roman:
+          type: string
+          example: Hokkaido
+          description: 都道府県名(ローマ字)
+        city_kana:
+          type: string
+          description: ミナトク
+          example: 港区
+        city_roman:
+          type: string
+          description: 市区町村名(ローマ字)
+          example: Minatoku
+        suburb_kana:
+          type: string
+          example: アカサカ
+          description: 町域名
+        suburb_roman:
+          type: string
+          example: Akasaka
+          description: 町域名(ローマ字)
+        prefecture:
+          type: string
+          description: 都道府県名
+          example: 東京都
+        city:
+          type: string
+          description: 市区町村名
+          example: 港区
+        suburb:
+          type: string
+          description: 町域名
+        street_address:
+          type: string
+          description: 小字名、丁目、番地等（漢字）
+        is_separated_suburb:
+          type: integer
+          format: int64
+          description: |
+            一町域が二以上の郵便番号で表される場合の表示
+            1: 該当
+            0: 該当せず
+        is_koaza:
+          type: integer
+          format: int64
+          description: |
+            一町域が二以上の郵便番号で表される場合の表示
+            1: 該当
+            0: 該当せず
+        is_chome:
+          type: integer
+          format: int64
+          description: |
+            丁目を有する町域の場合の表示
+            1: 該当
+            0: 該当せず
+        is_include_area:
+          type: integer
+          format: int64
+          description: |
+            一つの郵便番号で二以上の町域を表す場合の表示
+            1: 該当
+            0: 該当
+        is_eparated_suburb:
+          type: integer
+          format: int64
+          description: |
+            更新の表示
+              0: 変更なし
+              1: 変更あり
+              2: 廃止（廃止データのみ使用）
+        reason:
+          type: integer
+          format: int64
+          description: |
+            変更理由
+              0: 変更なし
+              1: 市政・区政・町政・分区・政令指定都市施行
+              2: 住居表示の実施
+              3: 区画整理
+              4: 郵便区調整等
+              5: 訂正
+              6: 廃止（廃止データのみ使用）
+        status:
+          type: integer
+          format: int64
+          description: |
+            変更理由
+              0: 変更なし
+              1: 変更あり
+              2: 廃止
+        postcode_type:
+          type: integer
+          format: int64
+          description: |
+            郵便番号の種別。郵便局が住所用の郵便番号と事業所用の郵便番号を定義しているため。
+            area: 住所
+            office: 事業所
+        office:
+          type: string
+          example: （株）　ＪＡ北海道情報センター
+          description: 大口事業所名（漢字）
+        office_kana:
+          type: string
+          example: (カブ) ジエイエイホツカイドウジヨウホウセンタ-
+          description: 大口事業所名（カナ）
+        office_roman:
+          type: string
+          example: (kabu) jieieihotsukaidoujiyouhousenta-
+          description: 大口事業所名（ローマ字）
+        handling_post_office:
+          type: string
+          description: 取扱局（漢字）
+        post_type:
+          type: string
+          description: 個別番号の種別の表示  
+        multiple_numbers:
+          type: string
+          description: 複数番号の有無
+        created_at:
+          type: string
+          example: '2021-10-15T12:13:26.433+09:00'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-10-15T12:13:26.433+09:00'
+      required:
+        - new
+        - name
+    Prefecture:
+      title: Prefecture
+      type: object
+      xml:
+        name: Prefecture
+      x-tags:
+        - Prefecture
+      description: 都道府県
+      properties:
+        code:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 47
+          description: 全国地方公共団体コード（JIS X0401、X0402）
+          example: 13
+        name:
+          type: string
+          description: 都道府県 漢字
+          example: '東京都'
+        name_e:
+          type: string
+          description: 都道府県 ローマ字
+          example: 'Tokyo'
+        name_h:
+          type: string
+          description: 都道府県 ひらがな
+          example: 'とうきょう'
+        name_k:
+          type: string
+          description: 都道府県 カタカナ
+          example: 'トウキョウ'
+        area:
+          type: string
+          description: 地方名
+          example: 関東
+        url:
+          type: string
+          description: その都道府県にある郵便番号のURL
+          example: https://postcode.teraren.com/prefectures/4.json
+
+    City:
+      title: City
+      type: object
+      xml:
+        name: City
+      x-tags:
+        - Prefecture
+      description: 市区町村
+      properties:
+        prefecture_kana:
+          type: string
+          description: 都道府県 カタカナ
+          example: 'トウキョウ'
+        city_kana:
+          type: string
+          description: 市町村区カナ
+          example: 'サッポロシキタク'
+        prefecture:
+          type: string
+          description: 都道府県
+          example: '東京'
+        city:
+          type: string
+          description: 市町村区
+          example: 札幌市北区
+        url:
+          type: string
+          description: その市町村区にある郵便番号のURL
+          example: "https://postcode.teraren.com/prefectures/1/cities/%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA.json"
+            
+    Building:
+      title: Building
+      type: object
+      xml:
+        name: Building
+      x-tags:
+        - Building
+      description: 建物（各フロアに郵便番号が割り当てられている場合の建物）
+      properties:
+        name:
+          description: 建物名
+          example: "中央アエル"
+          type: string
+        name_kana:
+          description: 建物名 カナ
+          example: "チュウオウアエル"
+          type: string
+        url:
+          type: string
+          description: その建物にある郵便番号のURL
+          example: "https://postcode.teraren.com/buildings/%E4%B8%AD%E5%A4%AE%E3%82%A2%E3%82%A8%E3%83%AB.json"
+        created_at:
+          type: string
+          example: '2021-10-15T12:13:26.433+09:00'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-10-15T12:13:26.433+09:00'
+      required:
+        - code
+    Error:
+      title: Error
+      type: object
+      description: A standard error object.
+      x-tags:
+        - common
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
+      x-examples:
+        サーバエラー:
+          code: '500'
+          message: サーバサイドのエラー

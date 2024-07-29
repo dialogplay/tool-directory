@@ -34,4 +34,6 @@ integrations:
     name: EuroForeignExchangeRates
   - id: soumu-musen
     name: SoumuMusenAPI
+  - id: postcode
+    name: PostcodeAPI
 
