@@ -1,10 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
-    <meta http-equiv="refresh" content="0; url=https://github.com/dialogplay/tool-directory">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/yamljs@0.3.0/dist/yaml.min.js"></script>
+    <style>
+      header {
+        background-color: #444;
+        color: #fff;
+        padding: 4px;
+      }
+    </style>
+    <script>
+      window.onload = function() {
+        // Code to be executed after the page has loaded
+        console.log("Page loaded!");
+        const DialogPlayDirectory = "https://tool-directory.dialogplay.jp/";
+        const DialogPlayDirectoryGitHub = "https://github.com/dialogplay/tool-directory/";
+        const apis = YAML.load(DialogPlayDirectory + "index.yaml");
+        console.log(apis);
+        console.log(apis.integrations.length);
+        const table = document.getElementById("apiTable");
+        apis.integrations.forEach((integration, i) => {
+          const row = table.insertRow(-1);
+          const c0 = row.insertCell(0);
+          const c1 = row.insertCell(1);
+          const c2 = row.insertCell(2);
+          c0.innerText = i + 1;
+          c1.innerHTML = `<a href="${DialogPlayDirectoryGitHub}tree/main/integrations/${integration.id}/README.md">${integration.id}</a>`;
+          c2.innerText = integration.name;
+        });
+      };
+    </script>
   </head>
   <body>
-    <p>Redirecting to the GitHub page...</p>
-    <a href="https://github.com/dialogplay/tool-directory">https://github.com/dialogplay/tool-directory</a>
+    <header class="p-3 text-bg-dark">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center">
+          <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <!-- svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg -->
+            <img src="https://www.dialogplay.jp/img/logo_icon@2x.png">
+          </a>
+          <span class="fs-4">DialogPlay Directory</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="container py-3">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h1"><a href="https://github.com/dialogplay/tool-directory">DialogPlay Directory</a> とは</h1>
+      </div>
+
+      <span>DialogPlay Directory は、大規模言語モデル(LLM)を使って自然言語により様々な API（アプリケーション・プログラミング・インターフェース）にアクセスするためのディレクトリーです。
+      従来は API を利用するためには、事前に API のインターフェースを確認して、プログラム開発を行う必要がありました。
+      DialogPlay Directory と大規模言語モデルを使うことで、個々のインターフェースを気にすることなく、様々な API を利用することができるようになりました。</span>
+      <span>DialogPlay Directory は、オープンソースです。API の追加、更新など、貢献を歓迎します。</span>
+    </div>
+
+    <div class="container py-3">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h1">DialogPlay Directory を利用する方法</h1>
+      </div>
+
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h3 class="h3">1. DialogPlay から利用する</h3>
+      </div>
+
+      <span>DialogPlay - AI チャットボットでは、使用する API を選択するだけで、シナリオに必要な API を呼びだすことができます。</span>
+
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h3 class="h3">2. pytool-directory から利用する</h3>
+      </div>
+
+      <div class="container py-3">
+        <span>Python で <a href="https://github.com/dialogplay/pytool-directory">pytool-directory</a> ライブラリーを使用します。LangChain のツールとして pytool-directory を利用すると、エージェントが対話内容に応じて DialogPlay Directory を参照して必要な API を利用します。</span>
+      </div>
+    </div>
+
+    <div class="container py-3">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h1">API List</h1>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table text-left" id="apiTable">
+          <thead>
+            <tr>
+              <th style="width: 11%;">#</th>
+              <th style="width: 22%;">id</th>
+              <th style="width: 22%;">name</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="container py-3">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h1">DialogPlay とは</h1>
+      </div>
+
+      <div class="container py-3">
+        <span><a href="https://www.dialogplay.jp">DialogPlay</a> は、TIS株式会社が提供する AI チャットボット・サービスです。ノーコードで様々なシナリオを作成して、独自の AI エージェントを作成することができます。</span>
+      </div>
+    </div>
+
+    <div class="container">
+      <footer class="py-3 my-4">
+        <p class="text-center text-body-secondary">© 2024 TIS Inc</p>
+      </footer>
+    </div>
+
   </body>
 </html>
