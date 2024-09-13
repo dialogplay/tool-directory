@@ -1,0 +1,933 @@
+openapi: 3.0.3
+info:
+  title: '不動産情報ライブラリ API / Real Estate Information Library API'
+  description: 'This is a API that can retrieve data from the Real Esate Information Library.'
+  version: 0.0.1
+externalDocs:
+  description: Find out more about Real Estate Information Library API
+  url: https://www.reinfolib.mlit.go.jp/
+servers:
+  - url: https://www.reinfolib.mlit.go.jp
+paths:
+  /ex-api/external/XKT004:
+    get:
+      summary: '国土数値情報（小学校区）API。 Digital national land information (Elementary school district)'
+      security:
+        - Ocp-Apim-Subscription-Key: []
+      parameters:
+        -
+          name: response_format
+          in: query
+          description: '応答形式。 GeoJSON/Binary vector tile'
+          schema:
+            type: string
+            enum:
+              - geojson
+              - pbf
+            description: >
+              応答形式:
+               * `geojson` - GeoJSON
+               * `pbf` - バイナリベクトルタイル
+            default: geojson
+          required: true
+          example: geojson
+        -
+          name: z
+          in: query
+          description: 'ZYZ方式におけるズームレベル（尺度）。 zoom level. between 11(city) and 15(detail)'
+          schema:
+            type: number
+          required: true
+          example: 11
+        -
+          name: x
+          in: query
+          description: 'タイル座標のX値'
+          schema:
+            type: number
+          required: true
+          example: 1819
+        -
+          name: y
+          in: query
+          description: 'タイル座標のY値'
+          schema:
+            type: number
+          required: true
+          example: 806
+        -
+          name: administrativeAreaCode
+          in: query
+          description: '行政区域コード。形式はNNNNN（数字5桁）  ※複数指定する場合は、「administrativeAreaCode=13101,13102」のようにカンマ区切りで指定してください。'
+          schema:
+            type: string
+          example: 13102
+      responses:
+        200:
+          description: 'XKT004'
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: 'Bad Request. Parameter error.'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
+  /ex-api/external/XKT005:
+    get:
+      summary: '国土数値情報（中学校区）API。 Digital national land information (Junior high school district)'
+      security:
+        - Ocp-Apim-Subscription-Key: []
+      parameters:
+        -
+          name: response_format
+          in: query
+          description: '応答形式。 GeoJSON/Binary vector tile'
+          schema:
+            type: string
+            enum:
+              - geojson
+              - pbf
+            description: >
+              応答形式:
+               * `geojson` - GeoJSON
+               * `pbf` - バイナリベクトルタイル
+            default: geojson
+          required: true
+          example: geojson
+        -
+          name: z
+          in: query
+          description: 'ZYZ方式におけるズームレベル（尺度）。 zoom level. between 11(city) and 15(detail)'
+          schema:
+            type: number
+          required: true
+          example: 11
+        -
+          name: x
+          in: query
+          description: 'タイル座標のX値'
+          schema:
+            type: number
+          required: true
+          example: 1819
+        -
+          name: y
+          in: query
+          description: 'タイル座標のY値'
+          schema:
+            type: number
+          required: true
+          example: 806
+        -
+          name: administrativeAreaCode
+          in: query
+          description: '行政区域コード。形式はNNNNN（数字5桁）  ※複数指定する場合は、「administrativeAreaCode=13101,13102」のようにカンマ区切りで指定してください。'
+          schema:
+            type: string
+          example: 13102
+      responses:
+        200:
+          description: 'XKT005'
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: 'Bad Request. Parameter error.'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
+  /ex-api/external/XKT006:
+    get:
+      summary: '国土数値情報（学校）API。 Digital national land information (School GIS)'
+      security:
+        - Ocp-Apim-Subscription-Key: []
+      parameters:
+        -
+          name: response_format
+          in: query
+          description: '応答形式。 GeoJSON/Binary vector tile'
+          schema:
+            type: string
+            enum:
+              - geojson
+              - pbf
+            description: >
+              応答形式:
+               * `geojson` - GeoJSON
+               * `pbf` - バイナリベクトルタイル
+            default: geojson
+          required: true
+          example: geojson
+        -
+          name: z
+          in: query
+          description: 'ZYZ方式におけるズームレベル（尺度）。 zoom level. between 11(city) and 15(detail)'
+          schema:
+            type: number
+          required: true
+          example: 11
+        -
+          name: x
+          in: query
+          description: 'タイル座標のX値'
+          schema:
+            type: number
+          required: true
+          example: 1819
+        -
+          name: y
+          in: query
+          description: 'タイル座標のY値'
+          schema:
+            type: number
+          required: true
+          example: 806
+      responses:
+        200:
+          description: 'XKT006'
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: 'Bad Request. Parameter error.'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
+  /ex-api/external/XKT007:
+    get:
+      summary: '国土数値情報（保育園・幼稚園等）API。 Digital national land information (Kindergarten GIS)'
+      security:
+        - Ocp-Apim-Subscription-Key: []
+      parameters:
+        -
+          name: response_format
+          in: query
+          description: '応答形式。 GeoJSON/Binary vector tile'
+          schema:
+            type: string
+            enum:
+              - geojson
+              - pbf
+            description: >
+              応答形式:
+               * `geojson` - GeoJSON
+               * `pbf` - バイナリベクトルタイル
+            default: geojson
+          required: true
+          example: geojson
+        -
+          name: z
+          in: query
+          description: 'ZYZ方式におけるズームレベル（尺度）。 zoom level. between 11(city) and 15(detail)'
+          schema:
+            type: number
+          required: true
+          example: 11
+        -
+          name: x
+          in: query
+          description: 'タイル座標のX値'
+          schema:
+            type: number
+          required: true
+          example: 1819
+        -
+          name: y
+          in: query
+          description: 'タイル座標のY値'
+          schema:
+            type: number
+          required: true
+          example: 806
+      responses:
+        200:
+          description: 'XKT007'
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: 'Bad Request. Parameter error.'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
+  /ex-api/external/XKT010:
+    get:
+      summary: '国土数値情報（医療機関）API。 Digital national land information (Medical institution GIS)'
+      security:
+        - Ocp-Apim-Subscription-Key: []
+      parameters:
+        -
+          name: response_format
+          in: query
+          description: '応答形式。 GeoJSON/Binary vector tile'
+          schema:
+            type: string
+            enum:
+              - geojson
+              - pbf
+            description: >
+              応答形式:
+               * `geojson` - GeoJSON
+               * `pbf` - バイナリベクトルタイル
+            default: geojson
+          required: true
+          example: geojson
+        -
+          name: z
+          in: query
+          description: 'ZYZ方式におけるズームレベル（尺度）。 zoom level. between 11(city) and 15(detail)'
+          schema:
+            type: number
+          required: true
+          example: 11
+        -
+          name: x
+          in: query
+          description: 'タイル座標のX値'
+          schema:
+            type: number
+          required: true
+          example: 1819
+        -
+          name: y
+          in: query
+          description: 'タイル座標のY値'
+          schema:
+            type: number
+          required: true
+          example: 806
+      responses:
+        200:
+          description: 'XKT010'
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: 'Bad Request. Parameter error.'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
+  /ex-api/external/XKT011:
+    get:
+      summary: '国土数値情報（福祉施設）API。 Digital national land information (welfare facility)'
+      security:
+        - Ocp-Apim-Subscription-Key: []
+      parameters:
+        -
+          name: response_format
+          in: query
+          description: '応答形式。 GeoJSON/Binary vector tile'
+          schema:
+            type: string
+            enum:
+              - geojson
+              - pbf
+            description: >
+              応答形式:
+               * `geojson` - GeoJSON
+               * `pbf` - バイナリベクトルタイル
+            default: geojson
+          required: true
+          example: geojson
+        -
+          name: z
+          in: query
+          description: 'ZYZ方式におけるズームレベル（尺度）。 zoom level. between 11(city) and 15(detail)'
+          schema:
+            type: number
+          required: true
+          example: 11
+        -
+          name: x
+          in: query
+          description: 'タイル座標のX値'
+          schema:
+            type: number
+          required: true
+          example: 1819
+        -
+          name: y
+          in: query
+          description: 'タイル座標のY値'
+          schema:
+            type: number
+          required: true
+          example: 806
+        -
+          name: administrativeAreaCode
+          in: query
+          description: '行政区域コード。形式はNNNNN（数字5桁）  ※複数指定する場合は、「administrativeAreaCode=13101,13102」のようにカンマ区切りで指定してください。'
+          schema:
+            type: string
+          example: 13102
+        -
+          name: welfareFacilityClassCode
+          in: query
+          description: '福祉施設大分類コード。形式はNN（数字2桁）  ※複数指定する場合は、「welfareFacilityClassCode=01,02」のようにカンマ区切りで指定してください。'
+          schema:
+            type: string
+          example: 01
+        -
+          name: welfareFacilityMiddleClassCode
+          in: query
+          description: '福祉施設中分類コード。形式はNNNN（数字4桁）  ※複数指定する場合は、「welfareFacilityMiddleClassCode=0101,0201」のようにカンマ区切りで指定してください。'
+          schema:
+            type: string
+          example: 0101
+        -
+          name: welfareFacilityMinorClassCode
+          in: query
+          description: '福祉施設小分類コード。形式はNNNNNN（数字6桁）  ※複数指定する場合は、「welfareFacilityMinorClassCode=020101,020102」のようにカンマ区切りで指定してください。'
+          schema:
+            type: string
+          example: 020101
+      responses:
+        200:
+          description: 'XKT011'
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: 'Bad Request. Parameter error.'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
+  /ex-api/external/XKT013:
+    get:
+      summary: '国土数値情報（将来推計人口500mメッシュ）API。 Digital national land information (estimated future population)'
+      security:
+        - Ocp-Apim-Subscription-Key: []
+      parameters:
+        -
+          name: response_format
+          in: query
+          description: '応答形式。 GeoJSON/Binary vector tile'
+          schema:
+            type: string
+            enum:
+              - geojson
+              - pbf
+            description: >
+              応答形式:
+               * `geojson` - GeoJSON
+               * `pbf` - バイナリベクトルタイル
+            default: geojson
+          required: true
+          example: geojson
+        -
+          name: z
+          in: query
+          description: 'ZYZ方式におけるズームレベル（尺度）。 zoom level. between 11(city) and 15(detail)'
+          schema:
+            type: number
+          required: true
+          example: 11
+        -
+          name: x
+          in: query
+          description: 'タイル座標のX値'
+          schema:
+            type: number
+          required: true
+          example: 1819
+        -
+          name: y
+          in: query
+          description: 'タイル座標のY値'
+          schema:
+            type: number
+          required: true
+          example: 806
+      responses:
+        200:
+          description: 'XKT013'
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: 'Bad Request. Parameter error.'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
+  /ex-api/external/XKT014:
+    get:
+      summary: 都市計画決定GISデータ（防火・準防火地域）API。 Digital national land information (fire protection area)'
+      security:
+        - Ocp-Apim-Subscription-Key: []
+      parameters:
+        -
+          name: response_format
+          in: query
+          description: '応答形式。 GeoJSON/Binary vector tile'
+          schema:
+            type: string
+            enum:
+              - geojson
+              - pbf
+            description: >
+              応答形式:
+               * `geojson` - GeoJSON
+               * `pbf` - バイナリベクトルタイル
+            default: geojson
+          required: true
+          example: geojson
+        -
+          name: z
+          in: query
+          description: 'ZYZ方式におけるズームレベル（尺度）。 zoom level. between 11(city) and 15(detail)'
+          schema:
+            type: number
+          required: true
+          example: 11
+        -
+          name: x
+          in: query
+          description: 'タイル座標のX値'
+          schema:
+            type: number
+          required: true
+          example: 1819
+        -
+          name: y
+          in: query
+          description: 'タイル座標のY値'
+          schema:
+            type: number
+          required: true
+          example: 806
+      responses:
+        200:
+          description: 'XKT014'
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: 'Bad Request. Parameter error.'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
+  /ex-api/external/XKT015:
+    get:
+      summary: 国土数値情報（駅別乗降客数）API。 Digital national land information (passengers by station)'
+      security:
+        - Ocp-Apim-Subscription-Key: []
+      parameters:
+        -
+          name: response_format
+          in: query
+          description: '応答形式。 GeoJSON/Binary vector tile'
+          schema:
+            type: string
+            enum:
+              - geojson
+              - pbf
+            description: >
+              応答形式:
+               * `geojson` - GeoJSON
+               * `pbf` - バイナリベクトルタイル
+            default: geojson
+          required: true
+          example: geojson
+        -
+          name: z
+          in: query
+          description: 'ZYZ方式におけるズームレベル（尺度）。 zoom level. between 11(city) and 15(detail)'
+          schema:
+            type: number
+          required: true
+          example: 11
+        -
+          name: x
+          in: query
+          description: 'タイル座標のX値'
+          schema:
+            type: number
+          required: true
+          example: 1819
+        -
+          name: y
+          in: query
+          description: 'タイル座標のY値'
+          schema:
+            type: number
+          required: true
+          example: 806
+      responses:
+        200:
+          description: 'XKT015'
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: 'Bad Request. Parameter error.'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
+  /ex-api/external/XKT016:
+    get:
+      summary: '国土数値情報（災害危険区域）API。 Digital national land information (disaster risk area)'
+      security:
+        - Ocp-Apim-Subscription-Key: []
+      parameters:
+        -
+          name: response_format
+          in: query
+          description: '応答形式。 GeoJSON/Binary vector tile'
+          schema:
+            type: string
+            enum:
+              - geojson
+              - pbf
+            description: >
+              応答形式:
+               * `geojson` - GeoJSON
+               * `pbf` - バイナリベクトルタイル
+            default: geojson
+          required: true
+          example: geojson
+        -
+          name: z
+          in: query
+          description: 'ZYZ方式におけるズームレベル（尺度）。 zoom level. between 11(city) and 15(detail)'
+          schema:
+            type: number
+          required: true
+          example: 11
+        -
+          name: x
+          in: query
+          description: 'タイル座標のX値'
+          schema:
+            type: number
+          required: true
+          example: 1819
+        -
+          name: y
+          in: query
+          description: 'タイル座標のY値'
+          schema:
+            type: number
+          required: true
+          example: 806
+        -
+          name: administrativeAreaCode
+          in: query
+          description: '行政区域コード。形式はNNNNN（数字5桁）  ※複数指定する場合は、「administrativeAreaCode=13101,13102」のようにカンマ区切りで指定してください。'
+          schema:
+            type: string
+          example: 13102
+      responses:
+        200:
+          description: 'XKT016'
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: 'Bad Request. Parameter error.'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
+  /ex-api/external/XKT017:
+    get:
+      summary: '国土数値情報（図書館）API。 Digital national land information (cultural facility)'
+      security:
+        - Ocp-Apim-Subscription-Key: []
+      parameters:
+        -
+          name: response_format
+          in: query
+          description: '応答形式。 GeoJSON/Binary vector tile'
+          schema:
+            type: string
+            enum:
+              - geojson
+              - pbf
+            description: >
+              応答形式:
+               * `geojson` - GeoJSON
+               * `pbf` - バイナリベクトルタイル
+            default: geojson
+          required: true
+          example: geojson
+        -
+          name: z
+          in: query
+          description: 'ZYZ方式におけるズームレベル（尺度）。 zoom level. between 11(city) and 15(detail)'
+          schema:
+            type: number
+          required: true
+          example: 11
+        -
+          name: x
+          in: query
+          description: 'タイル座標のX値'
+          schema:
+            type: number
+          required: true
+          example: 1819
+        -
+          name: y
+          in: query
+          description: 'タイル座標のY値'
+          schema:
+            type: number
+          required: true
+          example: 806
+        -
+          name: administrativeAreaCode
+          in: query
+          description: '行政区域コード。形式はNNNNN（数字5桁）  ※複数指定する場合は、「administrativeAreaCode=13101,13102」のようにカンマ区切りで指定してください。'
+          schema:
+            type: string
+          example: 13102
+      responses:
+        200:
+          description: 'XKT017'
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: 'Bad Request. Parameter error.'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
+  /ex-api/external/XKT018:
+    get:
+      summary: '国土数値情報（市区町村村役場及び集会施設等）API。 Digital national land information (city town hall)'
+      security:
+        - Ocp-Apim-Subscription-Key: []
+      parameters:
+        -
+          name: response_format
+          in: query
+          description: '応答形式。 GeoJSON/Binary vector tile'
+          schema:
+            type: string
+            enum:
+              - geojson
+              - pbf
+            description: >
+              応答形式:
+               * `geojson` - GeoJSON
+               * `pbf` - バイナリベクトルタイル
+            default: geojson
+          required: true
+          example: geojson
+        -
+          name: z
+          in: query
+          description: 'ZYZ方式におけるズームレベル（尺度）。 zoom level. between 11(city) and 15(detail)'
+          schema:
+            type: number
+          required: true
+          example: 11
+        -
+          name: x
+          in: query
+          description: 'タイル座標のX値'
+          schema:
+            type: number
+          required: true
+          example: 1819
+        -
+          name: y
+          in: query
+          description: 'タイル座標のY値'
+          schema:
+            type: number
+          required: true
+          example: 806
+      responses:
+        200:
+          description: 'XKT018'
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: 'Bad Request. Parameter error.'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
+  /ex-api/external/XKT019:
+    get:
+      summary: '国土数値情報（自然公園地域）API。 Digital national land information (natural park area)'
+      security:
+        - Ocp-Apim-Subscription-Key: []
+      parameters:
+        -
+          name: response_format
+          in: query
+          description: '応答形式。 GeoJSON/Binary vector tile'
+          schema:
+            type: string
+            enum:
+              - geojson
+              - pbf
+            description: >
+              応答形式:
+               * `geojson` - GeoJSON
+               * `pbf` - バイナリベクトルタイル
+            default: geojson
+          required: true
+          example: geojson
+        -
+          name: z
+          in: query
+          description: 'ZYZ方式におけるズームレベル（尺度）。 zoom level. between 11(city) and 15(detail)'
+          schema:
+            type: number
+          required: true
+          example: 11
+        -
+          name: x
+          in: query
+          description: 'タイル座標のX値'
+          schema:
+            type: number
+          required: true
+          example: 1819
+        -
+          name: y
+          in: query
+          description: 'タイル座標のY値'
+          schema:
+            type: number
+          required: true
+          example: 806
+        -
+          name: prefectureCode
+          in: query
+          description: '都道府県コード。形式はN（数字1桁）またはNN（数字2桁） 1（北海道）～47（沖縄県）で指定可能です。 ※複数指定する場合は、「prefectureCode=13,14」のようにカンマ区切りで指定してください。'
+          schema:
+            type: string
+          example: 13
+        -
+          name: districtCode
+          in: query
+          description: '地区コード。振興局区域を一意に識別するためのコードです。形式はN（数字1桁）またはNN（数字2桁）です。 ※複数指定する場合は、「districtCode=9,10」のようにカンマ区切りで指定してください。'
+          schema:
+            type: string
+          example: 10
+      responses:
+        200:
+          description: 'XKT019'
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: 'Bad Request. Parameter error.'
+        401:
+          description: 'Unauthorized. Invalid access token.'
+        403:
+          description: 'Forbidden.'
+        404:
+          description: 'Not Found.'
+        500:
+          description: 'Internal Server Error.'
+        503:
+          description: 'Service Unavailable.'
+components:
+  securitySchemes:
+    Ocp-Apim-Subscription-Key:
+      type: apiKey
+      in: header
+      name: Ocp-Apim-Subscription-Key
+      description: API key to access the service.
