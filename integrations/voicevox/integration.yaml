@@ -1,0 +1,47 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: Integration information for using VOICEVOX by Langchain tool
+paths:
+  /v2/voicevox/audio/:
+    get:
+      description:
+        en: Retrieves TTS url by VOICEVOX. Should be specified API key and text.
+        ja: VOICEVOXで音声読み上げするURLを取得する。APIキーと読み上げるテキストを指定しなければならない。
+      parameters:
+        - in: query
+          name: key
+          description:
+            en: API Key
+            ja: APIキー
+          runtime: false
+        - in: query
+          name: text
+          description: 'Text to TTS.'
+          description:
+            en: Text to speak.
+            ja: 読み上げるテキスト
+          runtime: true
+  /v2/voicevox/speakers/:
+    get:
+      description:
+        en: Retrieves speaker id list. Should be specified API key.
+        ja: 話者の一覧とidを取得する。APIキーを指定しなければならない。
+      parameters:
+        - in: query
+          name: key
+          description:
+            en: API Key
+            ja: APIキー
+          runtime: false
+  /v2/api/:
+    get:
+      description:
+        en: Retrieves points left.
+        ja: APIキーに対する残りポイントを取得する。
+      parameters:
+        - in: query
+          name: key
+          description:
+            en: API Key
+            ja: APIキー
+          runtime: false
