@@ -1,4 +1,4 @@
-# Integration for ODPT API
+# Integration for Real estate info API
 This integration provides API for obtaining real estate price information.
 
 ## Get /ex-api/external/XIT001
