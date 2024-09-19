@@ -1,0 +1,76 @@
+version: 0.0.1-dev
+openApi: ./openapi.yaml
+description: Integration information for using Real Estate Information Library API by Langchain tool
+paths:
+  /ex-api/external/XKT004:
+    get:
+      description:
+        en: Obtain land information (Elementary school district) from real estate information library. Require to specify response format and xyz tiles.
+        ja: 不動産情報ライブラリから国土数値情報（小学校区）情報を取得する。応答形式とXYZタイルの座標を指定する必要がある。
+      parameters:
+        - in: header
+          name: Ocp-Apim-Subscription-Key
+          description:
+            en: API key for calling API.
+            ja: APIを呼び出すためのAPIキー。
+          runtime: false
+        - in: query
+          name: response_format
+          description:
+            en: Response format. Specify 'geojson'.
+            ja: 応答形式。 GeoJSON形式の場合 'geojson' を指定する。
+          runtime: true
+        - in: query
+          name: z
+          description:
+            en: zoom level of xyz tiles. specify between 11(city) and 15(detail)'
+            ja: ZYZ方式におけるズームレベル（尺度）。
+          runtime: true
+        - in: query
+          name: x
+          description:
+            en: x value of xyz tiles.
+            ja: タイル座標のX値。
+          runtime: true
+        - in: query
+          name: y
+          description:
+            en: y value of xyz tiles.
+            ja: タイル座標のY値。
+          runtime: true
+  /ex-api/external/XKT005:
+    get:
+      description:
+        en: Obtain land information (Junior high school district) from real estate information library. Require to specify response format and xyz tiles.
+        ja: 不動産情報ライブラリから国土数値情報（中学校区）情報を取得する。応答形式とXYZタイルの座標を指定する必要がある。
+      parameters:
+        - in: header
+          name: Ocp-Apim-Subscription-Key
+          description:
+            en: API key for calling API.
+            ja: APIを呼び出すためのAPIキー。
+          runtime: false
+        - in: query
+          name: response_format
+          description:
+            en: Response format. Specify 'geojson'.
+            ja: 応答形式。 GeoJSON形式の場合 'geojson' を指定する。
+          runtime: true
+        - in: query
+          name: z
+          description:
+            en: zoom level of xyz tiles. specify between 11(city) and 15(detail)'
+            ja: ZYZ方式におけるズームレベル（尺度）。
+          runtime: true
+        - in: query
+          name: x
+          description:
+            en: x value of xyz tiles.
+            ja: タイル座標のX値。
+          runtime: true
+        - in: query
+          name: y
+          description:
+            en: y value of xyz tiles.
+            ja: タイル座標のY値。
+          runtime: true
