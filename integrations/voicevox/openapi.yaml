@@ -1,0 +1,133 @@
+openapi: 3.0.3
+info:
+  title: 'VOICEVOX API'
+  description: 'VOICEVOX TTS API for personal use'
+  version: 0.0.1
+externalDocs:
+  description: Find out more about this API
+  url: https://voicevox.su-shiki.com/su-shikiapis/
+servers:
+  - url: https://deprecatedapis.tts.quest
+paths:
+  /v2/voicevox/audio/:
+    get:
+      summary: 'Text to speech.'
+      parameters:
+        -
+          name: key
+          in: query
+          description: 'API key.'
+          schema:
+            type: string
+          required: true
+        -
+          name: text
+          in: query
+          description: 'Text to TTS.'
+          schema:
+            type: string
+          example: こんにちは
+          required: true
+        -
+          name: speaker
+          in: query
+          description: 'Speaker id.'
+          schema:
+            type: string
+          example: 2
+      responses:
+        200:
+          description: 'Success'
+          content:
+            audio/x-wav:
+              schema:
+                type: object
+        400:
+          description: 'Error message.'
+        403:
+          description: 'Forbidden. InvalidApiKey'
+  /v2/voicevox/speakers/:
+    get:
+      summary: 'Gets the speaker ids.'
+      parameters:
+        -
+          name: key
+          in: query
+          description: 'API key.'
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: 'Speaker id list'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    supported_features:
+                      type: object
+                      properties:
+                        permitted_synthesis_morphing:
+                          type: string
+                          enum:
+                            - SELF_ONLY
+                            - ALL
+                    name:
+                      type: string
+                      description: 'Speaker name'
+                      example: 四国めたん
+                    speaker_uuid:
+                      type: string
+                      description: 'Speaker uuid'
+                      example: 7ffcb7ce-00ec-4bdc-82cd-45a8889e43ff
+                    styles:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            description: 'Speaker style name'
+                            example: ノーマル
+                          id:
+                            type: number
+                            description: 'Speaker style id'
+                            example: 2
+                          type:
+                            type: string
+                            description: 'Speaker style type'
+                            example: talk
+        400:
+          description: 'Error message.'
+  /v2/api/:
+    get:
+      summary: 'Gets the points left.'
+      parameters:
+        -
+          name: key
+          in: query
+          description: 'API key.'
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: 'Points left'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  points:
+                    type: number
+                    description: 'points left'
+                    example: 9998500
+                  resetInHours:
+                    type: number
+                    description: 'Reset in hours'
+                    example: 24
+        400:
+          description: 'Error message.'
