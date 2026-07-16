@@ -2,9 +2,9 @@ Tool Directory For LangChain
 =========================
 This repository is intended to manage and publish APIs accessible from LangChain or LLMs.
 By utilizing the APIs in this repository within LangChain and LLMs, it becomes possible to build a flexible system capable of answering various questions.
-As an example, using it in the Dialog Play® (TIS Inc.'s chatbot service) allows for the development of scenario-less chatbots.
+As an example, using it in the Dialog Play® (TISI Inc.'s chatbot service) allows for the development of scenario-less chatbots.
 
-**[Dialog Play](https://www.tis.jp/service_solution/dialogplay/)**
+**[Dialog Play](https://www.tisi.jp/service_solution/dialogplay/)**
 
 Directory Contents
 -------------------------
