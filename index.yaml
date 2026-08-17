@@ -38,4 +38,5 @@ integrations:
     name: SoumuMusenAPI
   - id: postcode
     name: PostcodeAPI
-
+  - id: voicevox
+    name: VoicevoxAPI
