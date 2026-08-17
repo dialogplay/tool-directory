@@ -7,7 +7,7 @@ externalDocs:
   description: Find out more about What is today API
   url: https://note.com/sooz/n/n94cc1c71ad97
 servers:
-  - url: https://api.whatistoday.cyou/v2
+  - url: https://api.whatistoday.cyou/v3
 paths:
   /anniv/{mmdd}:
     get:
