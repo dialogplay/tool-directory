@@ -23,7 +23,7 @@ paths:
         -
           name: text
           in: query
-          description: 'Text to TTS.'
+          description: 'Text to Read Aloud.'
           schema:
             type: string
           example: こんにちは

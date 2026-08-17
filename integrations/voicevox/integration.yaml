@@ -16,7 +16,7 @@ paths:
           runtime: false
         - in: query
           name: text
-          description: 'Text to TTS.'
+          description: 'Text to Read Aloud.'
           description:
             en: Text to speak.
             ja: 読み上げるテキスト
